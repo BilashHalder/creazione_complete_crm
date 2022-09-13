@@ -1,5 +1,5 @@
 const router=require("express").Router();
-const {Find_,FindAll_,Add_,Update_,Remove_,ResetPass}=require('./customer.controller');
+const {Find_,FindAll_,Add_,Update_,Remove_,ResetPass,Login_,GetInfo_}=require('./customer.controller');
 
 
 /*******************************************
@@ -12,6 +12,9 @@ const {Find_,FindAll_,Add_,Update_,Remove_,ResetPass}=require('./customer.contro
  router.put("/:id",Update_);
  router.delete("/:id",Remove_);
  router.post("/reset/",ResetPass);
+ router.post("/login/",Login_);
+ router.post("/info/",GetInfo_);
+ 
 
 
   /*To handle all invalid request */  

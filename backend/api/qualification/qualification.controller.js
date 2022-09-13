@@ -45,7 +45,7 @@ const Add_ = (request, response) => {
         else if (certificatePdf.size > 5000000)
             response.status(400).json({ message: "File size To large" });
         else {
-            let newName = certificatePdf.md5 + '#_#' + Date.now() + '' + '.' + fileExt;
+            let newName = certificatePdf.md5 + '__' + Date.now() + '' + '.' + fileExt;
             let uploadPath = (__dirname + '../../../uploads/certificate/' + newName);
             certificatePdf.mv(uploadPath, function (err) {
                 if (err)
@@ -109,7 +109,7 @@ const Update_ = (request, response) => {
                     else if (certificatePdf.size > 5000000)
                         response.status(400).json({ message: "File size To large" });
                     else {
-                        let newName = certificatePdf.md5 + '#_#' + Date.now() + '' + '.' + fileExt;
+                        let newName = certificatePdf.md5 + '__' + Date.now() + '' + '.' + fileExt;
                         let uploadPath = (__dirname + '../../../uploads/certificate/' + newName);
                         certificatePdf.mv(uploadPath, function (err) {
                             if (err)

@@ -1,8 +1,9 @@
-const { add, update, find, findall, remove } = require("./associate.service");
+const { add, update, find, findall, remove,findby } = require("./associate.service");
 const Associate = require('./associate.schema');
 let associate = new Associate();
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+var jwt = require('jsonwebtoken');
 
 
 
@@ -31,7 +32,7 @@ const Add_ = (request, response) => {
         else if (image.size > 2000000)
             response.status(400).json({ message: "File size To large" });
         else {
-            let newName = image.md5 + '#_#' + Date.now() + '' + '.' + fileExt;
+            let newName = image.md5 + '__' + Date.now() + '' + '.' + fileExt;
             let uploadPath = (__dirname + '../../../uploads/images/' + newName);
             image.mv(uploadPath, function (err) {
                 if (err)
@@ -103,7 +104,7 @@ const Update_ = (request, response) => {
                         else if (image.size > 2000000)
                         response.status(400).json({ message: "File size To large" });
                         else {
-                            let newName = image.md5 + '#_#' + Date.now() + '' + '.' + fileExt;
+                            let newName = image.md5 + '__' + Date.now() + '' + '.' + fileExt;
                             let uploadPath = (__dirname + '../../../uploads/images/' + newName);
                             image.mv(uploadPath, function (err) {
                                 if (err)
@@ -201,9 +202,35 @@ const ResetPass=(request, response)=>{
         });
     }
 }
-module.exports = { Find_, FindAll_, Add_, Update_, Remove_ ,ResetPass}
 
 
+const Login_=(request, response)=>{
+    let {emailorphone,pass}=request.body;
+    if(emailorphone==undefined || pass==undefined)
+        response.status(400).json({ message: "Invalid Request" });
+else{
+    findby(emailorphone,(err,result)=>{
+        if(err)
+        response.status(500).json({ message: err });
+        else if(result.length==0)
+        response.status(400).json({ message: "invalid user credentials" });
+        else{
+            if(bcrypt.compareSync(pass,result[0].pass))
+            {
+                let user=result[0];
+                user.pass=undefined;
+                const token=jwt.sign({result:user},'qwerty369',{
+                    expiresIn:'1h'
+                });
+                response.status(200).json({message:'login success',key:token});
+            }
+             else
+             response.status(400).json({ message: "invalid user credentials" });
+            
+        }
+    })
+}
+   
 
-
-
+}
+module.exports = { Find_, FindAll_, Add_, Update_, Remove_ ,ResetPass,Login_}

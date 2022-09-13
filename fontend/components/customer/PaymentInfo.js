@@ -188,18 +188,54 @@ join the company’s services with effect from…………………………
         src="https://panampost.com/wp-content/uploads/don-quijote-lessons.jpg"
       /> */}
       <Text style={styles.text}>
-       
-       
-      </Text>
-      <Text style={styles.text}>
+      Employment Agreement
        
       </Text>
       <Text style={styles.text}>
-        
+      I, Mr. Surajit Roy do hereby agree with……………………. & other subsidiary companies to abide by the
+following consideration of the compensation paid to me by Creazione Group For services, in any
+capacity as an employee.
       </Text>
       <Text style={styles.text}>
-        
+      1. I shall disclose, fully and promptly, to _____________, all improvements and developments made or
+conceived, in whole or in part, by me during the term of my employment with Creazione Group
+relating to products, processes, services or methods that may be of interest to _____________In its
+business.
       </Text>
+      <Text style={styles.text}>
+      2. I shall not disclose to anyone, directly or in directly, except as my duties at Creazione Group. May
+require, during or after the term of my employment by the company. Any trade secret or confidential
+information regarding Creazione Group Business. Trade Secrets and confidential information for this
+purpose shall include, but not be limited to, product information, process information, customer
+details, financial information, company’s policies & procedures (including results, budgets and other
+plans & goals of the system) not already available to the public. In the event my employment with
+________________ Shall terminate, I agree to return to Creazione Group. All such trade secret and
+confidential information in my possession.
+      </Text>
+      <Text style={styles.text}>
+      3. I am aware that Creazione Group does not expect, nor does it want me to disclose trade secrets or
+other confidential information of any of my former employers, and I acknowledge my responsibility
+not to disclose to Creazione Group. any information in a trade secret that would violate my legal
+obligation to others.
+      </Text>
+      <Text style={styles.text}>
+      4. (RECOVERY CLAUSE)
+        </Text>
+        <Text style={styles.text}>
+        5. This AGREEMENT may not be modified on behalf of Creazione Group in whole or in part except by a
+statement in writing signed by an executive officer of Creazione Group.
+        </Text>
+        <Text style={styles.text}>
+        For Creazione Group of Companies Ms/ Mrs./Mr. _________________
+        </Text>
+        <Text style={styles.text}>
+        (Signature) ____________________________
+CEO &amp; MD (Signature)
+Name: Aviishek Maity
+        </Text>
+        <Text style={styles.text}>
+        Date & Place:
+        </Text>
       <Text
         style={styles.pageNumber}
         render={({ pageNumber, totalPages }) => `${pageNumber} / ${totalPages}`}

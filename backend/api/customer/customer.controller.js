@@ -1,8 +1,10 @@
-const { add, update, find, findall, remove } = require("./customer.service");
+const { add, update, find, findall, remove,findby } = require("./customer.service");
 const Customer = require('./customer.schema');
 let customer = new Customer();
 const bcrypt = require('bcrypt');
+const jwt=require('jsonwebtoken');
 const saltRounds = 10;
+const {verify}=require('jsonwebtoken');
 
 
 
@@ -31,7 +33,7 @@ const Add_ = (request, response) => {
         else if (image.size > 2000000)
             response.status(400).json({ message: "File size To large" });
         else {
-            let newName = image.md5 + '___' + Date.now() + '' + '.' + fileExt;
+            let newName = image.md5 + '__' + Date.now() + '' + '.' + fileExt;
             let uploadPath = (__dirname + '../../../uploads/images/' + newName);
             image.mv(uploadPath, function (err) {
                 if (err)
@@ -103,7 +105,7 @@ const Update_ = (request, response) => {
                         else if (image.size > 2000000)
                         response.status(400).json({ message: "File size To large" });
                         else {
-                            let newName = image.md5 + '___' + Date.now() + '' + '.' + fileExt;
+                            let newName = image.md5 + '__' + Date.now() + '' + '.' + fileExt;
                             let uploadPath = (__dirname + '../../../uploads/images/' + newName);
                             image.mv(uploadPath, function (err) {
                                 if (err)
@@ -174,6 +176,25 @@ const FindAll_ = (request, response) => {
 }
 
 
+const GetInfo_ = (request, response) => {
+    if(request.body.token==undefined)
+    response.status(400).json({ message: "Invalid Request" });
+   else{
+    let token=request.body.token;
+    console.log("send")
+    verify(token,'qwerty369',(err,obj)=>{
+        if(err)
+        response.status(400).json({ message: "Unauthorized Access" });
+        else{
+            response.status(200).json(obj)
+            
+        }
+    });
+   }
+
+   
+}
+
 const ResetPass=(request, response)=>{
     const {old_pass,new_pass,customer_id}=request.body;
     if(old_pass==undefined|| new_pass==undefined||customer_id==undefined)
@@ -203,5 +224,37 @@ const ResetPass=(request, response)=>{
         });
     }
 }
-module.exports = { Find_, FindAll_, Add_, Update_, Remove_,ResetPass }
+
+
+const Login_=(request, response)=>{
+    console.log("aaa")
+    let {emailorphone,pass}=request.body;
+    if(emailorphone==undefined || pass==undefined)
+        response.status(400).json({ message: "Invalid Request" });
+else{
+    findby(emailorphone,(err,result)=>{
+        if(err)
+        response.status(500).json({ message: err });
+        else if(result.length==0)
+        response.status(400).json({ message: "invalid user credentials" });
+        else{
+            if(bcrypt.compareSync(pass,result[0].pass))
+            {
+                let user=result[0];
+                user.pass=undefined;
+                const token=jwt.sign({result:user},'qwerty369',{
+                    expiresIn:'1h'
+                });
+                response.status(200).json({message:'login success',key:token,id:user.customer_id});
+            }
+             else
+             response.status(400).json({ message: "invalid user credentials" });
+            
+        }
+    })
+}
+   
+
+}
+module.exports = { Find_, FindAll_, Add_, Update_, Remove_,ResetPass,Login_ ,GetInfo_}
 

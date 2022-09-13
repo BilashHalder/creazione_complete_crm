@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Sep 12, 2022 at 09:13 AM
+-- Generation Time: Sep 13, 2022 at 09:25 AM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -75,11 +75,11 @@ CREATE TABLE IF NOT EXISTS `associate` (
 --
 
 INSERT INTO `associate` (`associate_id`, `name`, `gender`, `email`, `phone`, `document_id`, `pass`, `image`, `status`) VALUES
-(1, 'Associate New', 0, 'associate@gmail.com', '9876543210', 1, 'hqwgdjwqhgdjqwhgdjgdvajhasjdhfsadasfjdashdjafhd', '', 1),
-(2, 'Associate user', 1, 'associate@gmail.com', '9898989898', NULL, '$2b$10$kZj4GdIAtqc2x8XKlWjgQ.c59DOisU2q0PgKFRlQH.gK63vd0w3ou', '7af91f951b43200c0786517742caf90e#_#1662811037921.jpg', 1),
-(4, 'thunder ', 1, 'email@email.com', '1111111', NULL, '$2b$10$sV11BBIj/EN3Sj1k/ch8sec2XqDHu/kVoX5q5VmnuRd4glh/3ENY.', '0f04ba650595a3cab8f3dad2321caf46#_#1662906596207.png', 1),
-(5, 'thunder ', 1, 'email@email.com', '1111111', NULL, '$2b$10$J05C2FHuIPeeNSXS5RG6ueLqVQQc7LM/PtxIzDJz.mOYIcoZHTmbK', '0f04ba650595a3cab8f3dad2321caf46#_#1662906751162.png', 1),
-(6, 'update name', 0, 'update@u', '12292929', NULL, '$2b$10$87mXRDOyX8HijjSDp9C5PuyBF1ae4hMl1sEfF2gMPL5qWinRc2R/S', '0f04ba650595a3cab8f3dad2321caf46#_#1662908315791.png', 1);
+(1, 'Associate New', 0, 'associate@gmail.com', '9876543210', 1, '$2b$10$PgjVo6EpGkMtzmqnt/rMYOD0DjOa0/Th7a8gMet4R51iiiqhPIj8e', '', 1),
+(2, 'Associate user', 1, 'associate@gmail.com', '9898989898', NULL, '$2b$10$PgjVo6EpGkMtzmqnt/rMYOD0DjOa0/Th7a8gMet4R51iiiqhPIj8e', '7af91f951b43200c0786517742caf90e#_#1662811037921.jpg', 1),
+(4, 'thunder ', 1, 'email@email.com', '1111111', NULL, '$2a$10$3WOQwGprz7JDjLdlczAtNOQbhoePiXm6vZW88Ok2FIr64PE12Io7m', '0f04ba650595a3cab8f3dad2321caf46#_#1662906596207.png', 1),
+(5, 'thunder ', 1, 'email@email.com', '1111111', NULL, '$2a$10$3WOQwGprz7JDjLdlczAtNOQbhoePiXm6vZW88Ok2FIr64PE12Io7m', '0f04ba650595a3cab8f3dad2321caf46#_#1662906751162.png', 1),
+(6, 'update name', 0, 'update@u', '12292929', NULL, '$2a$10$3WOQwGprz7JDjLdlczAtNOQbhoePiXm6vZW88Ok2FIr64PE12Io7m', '0f04ba650595a3cab8f3dad2321caf46#_#1662908315791.png', 1);
 
 -- --------------------------------------------------------
 
@@ -103,8 +103,10 @@ CREATE TABLE IF NOT EXISTS `bank_account` (
 --
 
 INSERT INTO `bank_account` (`account_no`, `ifsc_code`, `branch`, `user_id`, `user_type`, `status`) VALUES
-('123456', 'IFSC00001', 'America', 1, 2, 1),
-('12345644', 'IFSC00', 'America New Branch', 2, 2, 1);
+('123456', 'IFSC00001', 'America', 1, 1, 1),
+('12345644', 'IFSC00', 'America New Branch', 12, 1, 1),
+('454554546', 'IFSC9929', 'Kolkata', 12, 1, 1),
+('45455454633', 'IFSC9292929', 'Kolkata', 12, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -124,7 +126,7 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `image` varchar(100) NOT NULL,
   `status` int(11) NOT NULL DEFAULT '1' COMMENT '1-active 0-not active',
   PRIMARY KEY (`customer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `customer`
@@ -132,7 +134,7 @@ CREATE TABLE IF NOT EXISTS `customer` (
 
 INSERT INTO `customer` (`customer_id`, `name`, `gender`, `email`, `phone`, `document_id`, `pass`, `image`, `status`) VALUES
 (1, 'Customer Bhai', 1, 'customer@gmail.com', '1234567890', 0, 'sjadksgdsjgdkjasgdkasjdgkasgdakj', '', 1),
-(2, 'customer 1', 1, 'bbb@bb.op', '555555555', NULL, '$2b$10$s9ISQvB.HwTms.yVkhSdVOcx0GdU4OzQ/c5HQiVLabk2p5AKZXACy', '83f317fa3fd7378b5f63efc3888bef19#_#1662824083203.jpg', 1),
+(2, 'Demo Customer', 1, 'a@a.com', '555555555', NULL, '$2b$10$PgjVo6EpGkMtzmqnt/rMYOD0DjOa0/Th7a8gMet4R51iiiqhPIj8e', '83f317fa3fd7378b5f63efc3888bef19#_#1662824083203.jpg', 1),
 (3, 'Bilash Halder', 0, 'ibilashhalder@gmail.com', '39876543210', NULL, '$2b$10$mh3Bgm0zxT/spViED/UZHezcXkKn86z0KB/dqPqq9v6WjqB1qgotG', '16f59cbaad05b1d49117497f2e6741b0#_#1662879301495.jpg', 1),
 (4, 'Bilash Halder', 0, 'ibilashhalder@gmail.com', '39876543210', NULL, '$2b$10$DW8mGp2uQr.nNG5thXiwB.f3olajZF8WcdfOp9vrTPNsRfLiWZrA.', '16f59cbaad05b1d49117497f2e6741b0#_#1662879431026.jpg', 1),
 (5, 'Bilash Halder', 0, 'ibilashhalder@gmail.com', '39876543210', NULL, '$2b$10$RfFGzzlY.q2TrX08Pm3zLu9rR8uZda3NdsOHd3emK4Bcr/xwXjt0C', '16f59cbaad05b1d49117497f2e6741b0#_#1662879457161.jpg', 1),
@@ -140,7 +142,8 @@ INSERT INTO `customer` (`customer_id`, `name`, `gender`, `email`, `phone`, `docu
 (7, 'Sachin', 2, 'Sachin@gmail.com', '6666666666', NULL, '$2b$10$.j216TPrbiITPtw88.V2bejOWkRphv9DjItFqJMEs6A1h1xbLhWD2', '4a7beacc921ed4c4b0fdc72e9676026f#_#1662879516407.jpg', 1),
 (8, 'Sachin', 2, 'Sachin@gmail.com', '6666666666', NULL, '$2b$10$gjQZhuQepHIts34fpfTfC.ME7zZwjxY9Qg0Ai4cc3cXHbp56pfyZW', '4a7beacc921ed4c4b0fdc72e9676026f#_#1662879603274.jpg', 1),
 (9, 'update name', 0, 'update@u', '12292929', NULL, '$2b$10$kFyHEs8Py1/nl/5LchkMgOGPmetzm9IP8hPsZ0li.1HoTCUXAA1GO', '0f04ba650595a3cab8f3dad2321caf46#_#1662909223443.png', 1),
-(11, 'Dummy User', 0, 'dummy@user.com', '9876543232', NULL, '$2b$10$0QxnypzdLeNCMSdIlFVbIuWXGnmtdhGHgwR7q/nwWJ6aAguY.uUDi', '4ff34c5498fa99db7a51952b9271078d___1662967905098.jpg', 1);
+(11, 'Dummy User', 0, 'dummy@user.com', '9876543232', NULL, '$2b$10$0QxnypzdLeNCMSdIlFVbIuWXGnmtdhGHgwR7q/nwWJ6aAguY.uUDi', '4ff34c5498fa99db7a51952b9271078d___1662967905098.jpg', 1),
+(12, 'Rahul Das', 0, 'rahul@gmail.com', '9876543210', NULL, '$2b$10$y/ytO68EbgdonR8ehTE2p.7Kzux8OCDPscfP9xrPTcCg3rBPeHcpm', '9fac8c1e0763053e0eed5e5052ff931b__1663053875341.jpg', 1);
 
 -- --------------------------------------------------------
 

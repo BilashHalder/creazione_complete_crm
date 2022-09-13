@@ -1,8 +1,9 @@
 require('dotenv').config();
 const express=require("express");
+const fs=require('fs');
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
-
+const{validateTocken}=require('./auth/tocken_validator')
 
 
 
@@ -40,11 +41,14 @@ const WorkReportRouter=require("./api/work_report/work_report.route");
 
 
 
-////////////////////All Routes(localhost:5000/api/) base url
+/************************************** 
+ * Routes(localhost:5000/api/) base url
 //domain:port/api/dbname
-/////////////////////////
+********************************************/
+
+
 app.use("/api/agreement",AgreementRouter);
-app.use("/api/associate",AssociateRouter);
+app.use("/api/associate",validateTocken,AssociateRouter);
 app.use("/api/bank_account",BankAccountRouter);
 app.use("/api/customer",CustomerRouter);
 app.use("/api/designation",DesignationRouter);
@@ -71,12 +75,30 @@ app.use("/api/work_report",WorkReportRouter);
     response.send("API Documentation");
 });
 
-
+/**
+ * To access files routes
+ */
 app.get('/uploads/images/:id', function (req, res) {
     id=req.params.id;
+    if(fs.existsSync(`${__dirname}/uploads/images/${id}`))
      res.sendFile(`${__dirname}/uploads/images/${id}`);
+     else
+     res.send('invalid');
 });
-
+app.get('/uploads/agreement/:id', function (req, res) {
+    id=req.params.id;
+    if(fs.existsSync(`${__dirname}/uploads/agreement/${id}`))
+     res.sendFile(`${__dirname}/uploads/agreement/${id}`);
+     else
+     res.send('invalid');
+});
+app.get('/uploads/certificate/:id', function (req, res) {
+    id=req.params.id;
+    if(fs.existsSync(`${__dirname}/uploads/certificate/${id}`))
+     res.sendFile(`${__dirname}/uploads/certificate/${id}`);
+     else
+     res.send('invalid');
+});
 /****************************
  * To handle all invalid request
  * ***************************/

@@ -49,4 +49,12 @@ const remove = (associate_id, callBack) => {
         return callBack(null,result);
     });
 }
-module.exports={add,update,find,findall,remove}
+const findby = (emailorphone, callBack) => {
+    dbcon.query('SELECT * from associate WHERE email=? or phone=?', [emailorphone,emailorphone], (err, result, fields) => {
+        if(err)
+        return callBack(err);
+        return callBack(null,result);
+    });
+}
+
+module.exports={add,update,find,findall,remove,findby}

@@ -46,7 +46,7 @@ const Add_=(request,response)=>{
      response.status(400).json({message:"File size To large"});
     else{
         console.log(agreementPdf.md5)
-        let newName=agreementPdf.md5+'#_#'+Date.now()+''+'.' + fileExt;
+        let newName=agreementPdf.md5+'__'+Date.now()+''+'.' + fileExt;
        let uploadPath=(__dirname + '../../../uploads/agreements/'+newName);
        agreementPdf.mv(uploadPath, function (err) {
             if (err)

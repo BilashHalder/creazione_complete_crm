@@ -1,5 +1,6 @@
-
+import { useRouter } from 'next/router';
 import {useSelector} from 'react-redux';
+import { useEffect,useState } from 'react';
 import Head from 'next/head'
 import Script from 'next/script'
 import Footer from '../../components/Footer'
@@ -18,6 +19,7 @@ import Dashboard from '../../components/customer/Dashboard';
 import Pending from '../../components/customer/Pending';
 import Rejected from '../../components/customer/Rejected';
 import Successfull from '../../components/customer/Successfull';
+import axios from 'axios';
 
 
 
@@ -26,6 +28,23 @@ import Successfull from '../../components/customer/Successfull';
 
 
 export default function Index() {
+  const [userInfo, setUserInfo] = useState(null)
+  const router = useRouter();
+  useEffect(() => {
+    if(localStorage.getItem('customerKey')){
+      axios.post('http://localhost:5000/api/customer/info',{token:localStorage.getItem('customerKey')}).
+      then((response)=>{
+        setUserInfo(response.data.result);
+      })
+      .catch((err)=>{
+        localStorage.removeItem('customerKey');
+        router.push('/');
+      });
+    }
+    else{
+      router.push('/');
+    }
+  }, [])
   const {menuId}= useSelector((store)=>{return store });
   return (
    <>
@@ -43,21 +62,21 @@ export default function Index() {
     </Head>
    
     <div class="container-scroller">
-    <SideBar/>
+    <SideBar user={userInfo}/>
       <div class="container-fluid page-body-wrapper">
        <NavBar/>
         <div class="main-panel">
           <div class="content-wrapper pb-0">
           <Header/>
-          {menuId==1?<Dashboard/>:<></>}
-          {menuId==2?<Pending/>:<></>}
-          {menuId==3?<Successfull/>:<></>}
-          {menuId==4?<Rejected/>:<></>}
-          {menuId==5?<ActiveInvesments/>:<></>}
-          {menuId==6?<ClosedInvesments/>:<></>}
-          {menuId==7?<AllInvesments/>:<></>}
-          {menuId==8?<BankAccount/>:<></>}
-          {menuId==9?<CustomerNominee/>:<></>}
+          {menuId==1?<Dashboard user={userInfo}/>:<></>}
+          {menuId==2?<Pending user={userInfo}/>:<></>}
+          {menuId==3?<Successfull user={userInfo}/>:<></>}
+          {menuId==4?<Rejected user={userInfo}/>:<></>}
+          {menuId==5?<ActiveInvesments user={userInfo}/>:<></>}
+          {menuId==6?<ClosedInvesments user={userInfo}/>:<></>}
+          {menuId==7?<AllInvesments user={userInfo}/>:<></>}
+          {menuId==8?<BankAccount user={userInfo}/>:<></>}
+          {menuId==9?<CustomerNominee user={userInfo}/>:<></>}
           {menuId==10?<CustomerProfile/>:<></>}
           </div>
           <Footer/>

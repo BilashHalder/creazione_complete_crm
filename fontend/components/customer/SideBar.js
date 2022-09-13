@@ -1,6 +1,7 @@
 import React, { useState,useEffect } from 'react'
 import {useSelector,useDispatch} from 'react-redux';
 import router from 'next/router'
+import {imageUrl} from '../../locale'
 
 import Clock from 'react-live-clock';
 import Link from 'next/link';
@@ -15,7 +16,9 @@ export default function SideBar(props) {
      dispatch(updateMenu(id));
    }
   const logout=()=>{
- router.push("/")
+    localStorage.removeItem('customerKey');
+    localStorage.removeItem('uid');
+    router.push("/")
   }
   return (
     
@@ -23,10 +26,11 @@ export default function SideBar(props) {
     <ul class="nav">
       <li class="nav-item nav-profile border-bottom">
           <div class="nav-profile-image">
-            <img src="../assets/images/faces/face1.jpg" alt="profile" />
+            {props.user?<img src={props.user.image?imageUrl+props.user.image:""} alt="profile" />:<></> }
+            
           </div>
           <div class="nav-profile-text d-flex ml-0 mb-3 flex-column">
-            <span class="font-weight-semibold mb-1 mt-2 text-center mb-1">Customer Name {menuId}</span>
+            <span class="font-weight-semibold mb-1 mt-2 text-center mb-1">{props.user?<p>{props.user.name}</p>:<></>}</span>
             <span class="text-secondary icon-sm text-center"> {new Date().toDateString()}</span>
             
           </div>

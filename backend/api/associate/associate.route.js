@@ -1,5 +1,5 @@
 const router=require("express").Router();
-const {Find_,FindAll_,Add_,Update_,Remove_,ResetPass}=require('./associate.controller');
+const {Find_,FindAll_,Add_,Update_,Remove_,ResetPass,Login_}=require('./associate.controller');
 
 
 /*******************************************
@@ -12,6 +12,7 @@ const {Find_,FindAll_,Add_,Update_,Remove_,ResetPass}=require('./associate.contr
  router.put("/:id",Update_);
  router.delete("/:id",Remove_);
  router.post("/reset/",ResetPass);
+ router.post("/login/",Login_);
 
   /*To handle all invalid request */  
   router.all("*",(request,response)=>{

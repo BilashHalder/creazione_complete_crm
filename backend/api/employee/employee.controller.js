@@ -1,4 +1,4 @@
-const { add, update, find, findall, remove } = require("./employee.service");
+const { add, update, find, findall, remove,findby } = require("./employee.service");
 const Employee = require('./employee.schema');
 let employee = new Employee();
 const bcrypt = require('bcrypt');
@@ -31,7 +31,7 @@ const Add_ = (request, response) => {
         else if (image.size > 2000000)
             response.status(400).json({ message: "File size To large" });
         else {
-            let newName = image.md5 + '#_#' + Date.now() + '' + '.' + fileExt;
+            let newName = image.md5 + '__' + Date.now() + '' + '.' + fileExt;
             let uploadPath = (__dirname + '../../../uploads/images/' + newName);
             image.mv(uploadPath, function (err) {
                 if (err)
@@ -103,7 +103,7 @@ const Update_ = (request, response) => {
                         else if (image.size > 2000000)
                         response.status(400).json({ message: "File size To large" });
                         else {
-                            let newName = image.md5 + '#_#' + Date.now() + '' + '.' + fileExt;
+                            let newName = image.md5 + '__' + Date.now() + '' + '.' + fileExt;
                             let uploadPath = (__dirname + '../../../uploads/images/' + newName);
                             image.mv(uploadPath, function (err) {
                                 if (err)
