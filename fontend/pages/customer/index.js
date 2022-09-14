@@ -9,10 +9,9 @@ import NavBar from '../../components/Navbar';
 import Header from '../../components/Header'
 
 //////////////////////////////////////////////////////////
-import ActiveInvesments from '../../components/customer/ActiveInvesments';
-import AllInvesments from '../../components/customer/AllInvesments';
+import MyInvesments from '../../components/customer/MyInvesments';
+import NewInvesMent from '../../components/customer/NewInvesMent';
 import BankAccount from '../../components/customer/BankAccount';
-import ClosedInvesments from '../../components/customer/ClosedInvesments';
 import CustomerNominee from '../../components/customer/CustomerNominee';
 import CustomerProfile from '../../components/customer/CustomerProfile';
 import Dashboard from '../../components/customer/Dashboard';
@@ -72,9 +71,8 @@ export default function Index() {
           {menuId==2?<Pending user={userInfo}/>:<></>}
           {menuId==3?<Successfull user={userInfo}/>:<></>}
           {menuId==4?<Rejected user={userInfo}/>:<></>}
-          {menuId==5?<ActiveInvesments user={userInfo}/>:<></>}
-          {menuId==6?<ClosedInvesments user={userInfo}/>:<></>}
-          {menuId==7?<AllInvesments user={userInfo}/>:<></>}
+          {menuId==5?<MyInvesments user={userInfo}/>:<></>}
+          {menuId==6?<NewInvesMent user={userInfo}/>:<></>}
           {menuId==8?<BankAccount user={userInfo}/>:<></>}
           {menuId==9?<CustomerNominee user={userInfo}/>:<></>}
           {menuId==10?<CustomerProfile/>:<></>}

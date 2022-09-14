@@ -6,6 +6,9 @@ export default function BankAccount(props) {
 
 
   const [account, setAccount] = useState(null);
+  const [count,setCount]=useState(null);
+
+
  useEffect(() => {
   const uid=localStorage.getItem("uid");
    axios.post(apiUrl+'bank_account/user',{
@@ -13,16 +16,15 @@ export default function BankAccount(props) {
     user_id:uid
    }).then((response)=>{
     setAccount(response.data)
+    setCount(response.data.length)
    }).catch((err)=>{
     console.log(err);
    });
- },[account]);
+ },[count]);
 
  const handleForm=(event)=>{
 event.preventDefault();
-console.log(event.target.account.value);
-console.log(event.target.ifsc.value);
-console.log(event.target.branch.value);
+
 axios.post(apiUrl+'bank_account',{
   user_id:localStorage.getItem("uid"),
   user_type:1,
@@ -32,6 +34,7 @@ axios.post(apiUrl+'bank_account',{
 
 
 }).then((response)=>{
+  setCount(count+1);
   console.log(response.data);
 }).catch((err)=>{
   console.log(err);
@@ -74,24 +77,31 @@ axios.post(apiUrl+'bank_account',{
                 </div>
        </div>
        <div class="col-md-5 grid-margin">
-                <form onSubmit={handleForm}>
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title text-center">Add New Bank Account</h4>
-                    <div class="form-group">
-                      <input type="text" name="account" class="form-control form-control-lg" placeholder="Account No" aria-label="Bank Account No"/>
-                    </div>
-                    <div class="form-group">
-                      <input type="text" name="ifsc" class="form-control" placeholder="IFSC Code" aria-label="IFSC Code"/>
-                    </div>
-                    <div class="form-group">
-                      <input type="text" name="branch" class="form-control form-control-sm" placeholder="Branch Name" aria-label="Branch Name"/>
-                    </div>
-                    <div class="text-center">
-                      <button type="submit" class="btn btn-primary mb-2" >Save</button></div>
-                  </div>
-                </div>
-                </form>
+               {count>4?<>
+              <div class="card">
+              <div class="card-body">
+              <h5 class="text-warning">You Can't add more than 5 Account</h5>
+              </div> </div>
+               </>: 
+               <form onSubmit={handleForm}>
+               <div class="card">
+                 <div class="card-body">
+                   <h4 class="card-title text-center">Add New Bank Account</h4>
+                   <div class="form-group">
+                     <input type="text" name="account" class="form-control form-control-lg" placeholder="Account No" aria-label="Bank Account No"/>
+                   </div>
+                   <div class="form-group">
+                     <input type="text" name="ifsc" class="form-control" placeholder="IFSC Code" aria-label="IFSC Code"/>
+                   </div>
+                   <div class="form-group">
+                     <input type="text" name="branch" class="form-control form-control-sm" placeholder="Branch Name" aria-label="Branch Name"/>
+                   </div>
+                   <div class="text-center">
+                     <button type="submit" class="btn btn-primary mb-2" >Save</button></div>
+                 </div>
+               </div>
+               </form>
+                }
               </div>
     </div>
   )
