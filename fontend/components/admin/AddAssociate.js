@@ -33,8 +33,9 @@ export default function AddAssociate() {
                         <div class="form-group">
                         <label for="exampleSelectGender">Gender</label>
                         <select class="form-control" id="exampleSelectGender">
-                          <option>Male</option>
-                          <option>Female</option>
+                          <option value={0}>Male</option>
+                          <option value={1}>Female</option>
+                          <option value={2}>Others</option>
                         </select>
                       </div>
                         </div>
@@ -53,12 +54,7 @@ export default function AddAssociate() {
                         <input type="number" class="form-control" id="exampleInputCity1" placeholder="Commision Rate"/>
                       </div>
                         </div>
-                        <div class="col-md-2">
-                        <div class="form-check form-switch pt-4 ps-5">
-                        <label class="form-check-label" for="flexSwitchCheckDefault">Status</label>
-                          <input class="form-check-input ms-4" type="checkbox" id="flexSwitchCheckDefault"/>
-                        </div>
-                        </div>
+                        
                       </div>
                       <button type="submit" class="btn btn-primary me-2">Submit</button>
                       <button class="btn btn-light">Cancel</button>

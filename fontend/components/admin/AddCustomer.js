@@ -1,7 +1,15 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 const validator = require('validator');
+import { apiUrl, imageUrl } from '../../locale';
 const axios = require('axios').default;
 export default function AddCustomer() {
+useEffect(()=>{
+  axios.get(`${apiUrl}associate`).then((response) => {
+    setassociates(response.data);
+  }).catch((err) => {
+    console.log(err);
+  });
+},[])
   const handleForm=(e)=>{
     e.preventDefault();
 
@@ -13,7 +21,8 @@ export default function AddCustomer() {
     validator.isEmail(email)?setErr(false):"";
     validator.isMobilePhone(phone)?e.target.phone.classList.remove("inp-err"):e.target.phone.classList.add("inp-err")
     phone.toString().length<10?e.target.phone.classList.add("inp-err"):e.target.phone.classList.remove("inp-err");
-    gender==null?e.target.gender.classList.add("inp-err"):e.target.gender.classList.remove("inp-err");
+    gender==-1?e.target.gender.classList.add("inp-err"):e.target.gender.classList.remove("inp-err");
+    associateId==-1?e.target.associate_id.classList.add("inp-err"):e.target.associate_id.classList.remove("inp-err");
     image==null?e.target.image.classList.add("inp-err"):e.target.image.classList.remove("inp-err");
     password==null?e.target.password.classList.add("inp-err"):e.target.password.classList.remove("inp-err");
     cpassword==null?e.target.cpassword.classList.add("inp-err"):e.target.cpassword.classList.remove("inp-err");
@@ -26,16 +35,31 @@ export default function AddCustomer() {
     formData.append('email',email)
     formData.append('pass',password);
     formData.append('gender',gender)
-    formData.append('phone',phone)
+    formData.append('phone',phone);
+    formData.append('associate_id',associateId)
     axios.post('http://localhost:5000/api/customer', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
   }).then(function (result) {
-    console.log(result.data.data[0]);
+    setMessage("Customer Added Successfully");
+    setErr(false);
+    setSucess(true);
+    setName("");
+    setEmail("");
+    setPhone("");
+    setGender(-1);
+    setassociateId(-1);
+    setPassword("");
+    setCpassword("")
+    setImage(null);
+    document.getElementById("image").value=""
+
   })
   .catch(function (err) {
-    console.log(err);
+    setMessage(err.response.data.message);
+    setErr(true);
+    setSucess(false);
   });
 
 
@@ -49,18 +73,29 @@ export default function AddCustomer() {
 
   const resetForm=(e)=>{
     e.preventDefault();
-    console.log("reset")
+    setName("");
+    setEmail("");
+    setPhone("");
+    setGender(-1);
+    setPassword("");
+    setImage(null);
   }
+
+
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [gender, setGender] = useState(null);
-  const [password, setPassword] = useState(null);
+  const [gender, setGender] = useState(-1);
+  const [password, setPassword] = useState("");
   const [cpassword, setCpassword] = useState();
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState("");
   const [err, setErr] = useState();
-  const [success, setSucess] = useState(null);
-  const [message, setMessage] = useState(null)
+  const [associateId, setassociateId] = useState(-1)
+  const [success, setSucess] = useState("");
+  const [message, setMessage] = useState("")
+
+  const [associates, setassociates] = useState()
   return (
     <div className='row'>
     <div class="col-12 grid-margin stretch-card">
@@ -72,32 +107,46 @@ export default function AddCustomer() {
                       <div class="row">
                         <div class="col-md-6">
                         <div class="form-group">
-                        <label for="name">Name</label>
+                        <label htmlFor="name">Name</label>
                         <input type="text" class="form-control" id="name" name="name" placeholder="Name" value={name} onChange={(e)=> setName(e.target.value)}/>
                       </div>
                         </div>
                         <div class="col-md-6">
                         <div class="form-group">
-                        <label for="email">Email address</label>
+                        <label htmlFor="email">Email address</label>
                         <input type="email" class="form-control" id="email" placeholder="Email" name="email"value={email} onChange={(e)=> setEmail(e.target.value)}/>
                       </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                         <div class="form-group">
-                        <label for="phon">Phone No</label>
-                        <input type="number" class="form-control" id="phone"  name="phone" placeholder="Phone No"value={phone} onChange={(e)=> setPhone(e.target.value)}/>
+                        <label htmlFor="phon">Phone No</label>
+                        <input type="number" class="form-control" min={0} id="phone"  name="phone" placeholder="Phone No"value={phone} onChange={(e)=> setPhone(e.target.value)}/>
                       </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                         <div class="form-group">
-                        <label for="exampleSelectGender">Gender</label>
+                        <label htmlFor="exampleSelectGender">Gender</label>
                         <select class="form-control" id="exampleSelectGender"name="gender" value={gender} onChange={(e)=> setGender(e.target.value)}>
-                          <option>Please Select</option>
+                          <option value={-1}>Please Select</option>
                           <option value={0}>Male</option>
                           <option value={1}>Female</option>
                           <option value={2}>Otheres</option>
                         </select>
+                      </div>
+                        </div>
+                        <div class="col-md-4">
+                        <div class="form-group">
+                        <label htmlFor="associate">Select Associate</label>
+                        {associates?<>
+                          <select class="form-control" id="associate"name="associate_id" value={associateId} onChange={(e)=> setassociateId(e.target.value)}>
+                          <option value={-1}>Please Select</option>
+                         {associates.map((item,index)=>{
+                          return(<option key={index} value={item.associate_id}>{item.name}</option>)
+                         })}
+                        </select>
+                        </>:<><p>please add associate</p></>}
+                        
                       </div>
                         </div>
                         <div class="col-md-4">
@@ -113,17 +162,18 @@ export default function AddCustomer() {
 
                         <div class="col-md-4">
                         <div class="form-group">
-                        <label for="password">Password</label>
+                        <label htmlFor="password">Password</label>
                         <input type="password" class="form-control" id="password" name="password"placeholder="Password" value={password} onChange={(e)=> setPassword(e.target.value)}/>
                       </div>
                         </div>
                         <div class="col-md-4">
                         <div class="form-group">
-                        <label for="cpassword"> Confirm Password</label>
+                        <label htmlFor="cpassword"> Confirm Password</label>
                         <input type="password" class="form-control" id="cpassword" name='cpassword' placeholder="Password" value={cpassword} onChange={(e)=> setCpassword(e.target.value)}/>
                         </div>
                         </div>
                       </div>
+                      
                       {
                         message?<div class={err?"alert alert-danger":success?"alert alert-success": "hide"}  role="alert"> {message} </div>:<></>
                       }
@@ -141,7 +191,7 @@ export default function AddCustomer() {
                     
                   </div>
                 </div>
-              </div>
+    </div>
     </div>
   )
 }

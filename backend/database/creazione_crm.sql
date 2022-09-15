@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Sep 13, 2022 at 09:25 AM
+-- Generation Time: Sep 15, 2022 at 09:25 AM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -105,8 +105,10 @@ CREATE TABLE IF NOT EXISTS `bank_account` (
 INSERT INTO `bank_account` (`account_no`, `ifsc_code`, `branch`, `user_id`, `user_type`, `status`) VALUES
 ('123456', 'IFSC00001', 'America', 1, 1, 1),
 ('12345644', 'IFSC00', 'America New Branch', 12, 1, 1),
+('4545454563633', 'IGSGGSHHS', 'Mananan', 12, 1, 1),
 ('454554546', 'IFSC9929', 'Kolkata', 12, 1, 1),
-('45455454633', 'IFSC9292929', 'Kolkata', 12, 1, 1);
+('45455454633', 'IFSC9292929', 'Kolkata', 12, 1, 1),
+('90101001010', 'IGSGGSHHS', 'Mananan', 12, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -122,28 +124,28 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `email` varchar(80) NOT NULL,
   `phone` varchar(15) NOT NULL,
   `document_id` int(11) DEFAULT NULL,
+  `associate_id` int(11) DEFAULT NULL,
   `pass` varchar(100) NOT NULL,
   `image` varchar(100) NOT NULL,
   `status` int(11) NOT NULL DEFAULT '1' COMMENT '1-active 0-not active',
   PRIMARY KEY (`customer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `customer`
 --
 
-INSERT INTO `customer` (`customer_id`, `name`, `gender`, `email`, `phone`, `document_id`, `pass`, `image`, `status`) VALUES
-(1, 'Customer Bhai', 1, 'customer@gmail.com', '1234567890', 0, 'sjadksgdsjgdkjasgdkasjdgkasgdakj', '', 1),
-(2, 'Demo Customer', 1, 'a@a.com', '555555555', NULL, '$2b$10$PgjVo6EpGkMtzmqnt/rMYOD0DjOa0/Th7a8gMet4R51iiiqhPIj8e', '83f317fa3fd7378b5f63efc3888bef19#_#1662824083203.jpg', 1),
-(3, 'Bilash Halder', 0, 'ibilashhalder@gmail.com', '39876543210', NULL, '$2b$10$mh3Bgm0zxT/spViED/UZHezcXkKn86z0KB/dqPqq9v6WjqB1qgotG', '16f59cbaad05b1d49117497f2e6741b0#_#1662879301495.jpg', 1),
-(4, 'Bilash Halder', 0, 'ibilashhalder@gmail.com', '39876543210', NULL, '$2b$10$DW8mGp2uQr.nNG5thXiwB.f3olajZF8WcdfOp9vrTPNsRfLiWZrA.', '16f59cbaad05b1d49117497f2e6741b0#_#1662879431026.jpg', 1),
-(5, 'Bilash Halder', 0, 'ibilashhalder@gmail.com', '39876543210', NULL, '$2b$10$RfFGzzlY.q2TrX08Pm3zLu9rR8uZda3NdsOHd3emK4Bcr/xwXjt0C', '16f59cbaad05b1d49117497f2e6741b0#_#1662879457161.jpg', 1),
-(6, 'Bilash Halder', 0, 'ibilashhalder@gmail.com', '39876543210', NULL, '$2b$10$jQFCd9wz2x3Rm189VnIYBO.qCa8LkVy6za0udbmLgKApC/U94uYi.', '16f59cbaad05b1d49117497f2e6741b0#_#1662879478668.jpg', 1),
-(7, 'Sachin', 2, 'Sachin@gmail.com', '6666666666', NULL, '$2b$10$.j216TPrbiITPtw88.V2bejOWkRphv9DjItFqJMEs6A1h1xbLhWD2', '4a7beacc921ed4c4b0fdc72e9676026f#_#1662879516407.jpg', 1),
-(8, 'Sachin', 2, 'Sachin@gmail.com', '6666666666', NULL, '$2b$10$gjQZhuQepHIts34fpfTfC.ME7zZwjxY9Qg0Ai4cc3cXHbp56pfyZW', '4a7beacc921ed4c4b0fdc72e9676026f#_#1662879603274.jpg', 1),
-(9, 'update name', 0, 'update@u', '12292929', NULL, '$2b$10$kFyHEs8Py1/nl/5LchkMgOGPmetzm9IP8hPsZ0li.1HoTCUXAA1GO', '0f04ba650595a3cab8f3dad2321caf46#_#1662909223443.png', 1),
-(11, 'Dummy User', 0, 'dummy@user.com', '9876543232', NULL, '$2b$10$0QxnypzdLeNCMSdIlFVbIuWXGnmtdhGHgwR7q/nwWJ6aAguY.uUDi', '4ff34c5498fa99db7a51952b9271078d___1662967905098.jpg', 1),
-(12, 'Rahul Das', 0, 'rahul@gmail.com', '9876543210', NULL, '$2b$10$y/ytO68EbgdonR8ehTE2p.7Kzux8OCDPscfP9xrPTcCg3rBPeHcpm', '9fac8c1e0763053e0eed5e5052ff931b__1663053875341.jpg', 1);
+INSERT INTO `customer` (`customer_id`, `name`, `gender`, `email`, `phone`, `document_id`, `associate_id`, `pass`, `image`, `status`) VALUES
+(1, 'Customer Bhai', 1, 'customer@gmail.com', '1234567890', 0, NULL, 'sjadksgdsjgdkjasgdkasjdgkasgdakj', '', 1),
+(2, 'Demo Customer', 1, 'a@a.com', '555555555', NULL, NULL, '$2b$10$PgjVo6EpGkMtzmqnt/rMYOD0DjOa0/Th7a8gMet4R51iiiqhPIj8e', '83f317fa3fd7378b5f63efc3888bef19#_#1662824083203.jpg', 1),
+(7, 'Sachin', 2, 'Sachin@gmail.com', '6666666666', NULL, NULL, '$2b$10$.j216TPrbiITPtw88.V2bejOWkRphv9DjItFqJMEs6A1h1xbLhWD2', '4a7beacc921ed4c4b0fdc72e9676026f#_#1662879516407.jpg', 1),
+(8, 'Sachin', 2, 'Sachin@gmail.com', '6666666666', NULL, NULL, '$2b$10$gjQZhuQepHIts34fpfTfC.ME7zZwjxY9Qg0Ai4cc3cXHbp56pfyZW', '4a7beacc921ed4c4b0fdc72e9676026f#_#1662879603274.jpg', 1),
+(9, 'update name', 0, 'update@u', '12292929', NULL, NULL, '$2b$10$kFyHEs8Py1/nl/5LchkMgOGPmetzm9IP8hPsZ0li.1HoTCUXAA1GO', '0f04ba650595a3cab8f3dad2321caf46#_#1662909223443.png', 1),
+(11, 'Dummy User', 0, 'dummy@user.com', '9876543232', NULL, NULL, '$2b$10$0QxnypzdLeNCMSdIlFVbIuWXGnmtdhGHgwR7q/nwWJ6aAguY.uUDi', '4ff34c5498fa99db7a51952b9271078d___1662967905098.jpg', 1),
+(12, 'Rahul Das', 0, 'rahul@gmail.com', '9876543210', 1, NULL, '$2b$10$y/ytO68EbgdonR8ehTE2p.7Kzux8OCDPscfP9xrPTcCg3rBPeHcpm', '9fac8c1e0763053e0eed5e5052ff931b__1663053875341.jpg', 1),
+(13, 'Demo Customer', 1, 'customer@gmail.com', '13425678902', NULL, NULL, '$2b$10$6xqA6AoU/RsB8eAfI.YBt.GJFU6YkOvOVDccLE51MNa9FLjZ8smVC', 'd16e999e252ac35a37118947b1a4910d__1663222829464.jpg', 1),
+(14, 'Demo Customer', 1, 'customer2@gmail.com', '13425678902', NULL, NULL, '$2b$10$PbHj7ZK8t7/NIr72Pg6V7OMrBrgkNiP4ZmFTX6.B4h/s8JRbPmeJa', 'd16e999e252ac35a37118947b1a4910d__1663222855009.jpg', 1),
+(15, 'Demo Customer', 1, 'customer@gmail.com', '13425678902', NULL, NULL, '$2b$10$VDbnQ24r4VhHuGxWpqrhqeqcOPmPjzk9t2PtFtTF58G1R.bZGBUQO', 'd16e999e252ac35a37118947b1a4910d__1663222891398.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -156,7 +158,7 @@ CREATE TABLE IF NOT EXISTS `designation` (
   `designation_id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) NOT NULL,
   PRIMARY KEY (`designation_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `designation`
@@ -165,7 +167,9 @@ CREATE TABLE IF NOT EXISTS `designation` (
 INSERT INTO `designation` (`designation_id`, `title`) VALUES
 (1, 'developer'),
 (3, 'Manager'),
-(4, 'Software Developer');
+(4, 'Software Developer'),
+(5, 'Software Tester'),
+(6, 'HR');
 
 -- --------------------------------------------------------
 
@@ -189,7 +193,7 @@ CREATE TABLE IF NOT EXISTS `document` (
 --
 
 INSERT INTO `document` (`document_id`, `adhar_no`, `pan_no`, `address`, `adhar_verified`, `pan_verified`) VALUES
-(1, '88282828282', 'JAJJAJAJAJ', 'Kolkata', 1, 1),
+(1, '88282828282', 'ACD123456', 'DN 36, Collegemore, 36, Street Number 13, DN Block, Sector V, Bidhannagar, Kolkata, West Bengal 700091\n', 1, 1),
 (2, '124343434343434', 'ADADDA111', 'Kolkataaaa', 1, 1);
 
 -- --------------------------------------------------------
@@ -248,6 +252,7 @@ CREATE TABLE IF NOT EXISTS `employee_info` (
 DROP TABLE IF EXISTS `investment`;
 CREATE TABLE IF NOT EXISTS `investment` (
   `investment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
   `ammount` float NOT NULL,
   `date_time` datetime NOT NULL,
   `roi` float NOT NULL,
@@ -257,7 +262,15 @@ CREATE TABLE IF NOT EXISTS `investment` (
   `agreement_id` int(11) NOT NULL,
   `status` tinyint(4) NOT NULL COMMENT '1-active 0-close',
   PRIMARY KEY (`investment_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `investment`
+--
+
+INSERT INTO `investment` (`investment_id`, `user_id`, `ammount`, `date_time`, `roi`, `nominee_id`, `account_no`, `payment_id`, `agreement_id`, `status`) VALUES
+(1, 12, 2000, '2022-09-14 04:59:54', 5, 1, '93993939393', 'YYYBSBSBBSBSBS', 1, 1),
+(2, 12, 3000, '2022-09-14 06:25:12', 3, 2, '2828288282', '22929292929', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -274,14 +287,47 @@ CREATE TABLE IF NOT EXISTS `nominee` (
   `user_type` int(11) NOT NULL COMMENT '1-customer 2-associate',
   `status` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`nominee_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `nominee`
 --
 
 INSERT INTO `nominee` (`nominee_id`, `name`, `dob`, `user_id`, `user_type`, `status`) VALUES
-(1, 'Nominee 1', '2014-09-09', 1, 2, 1);
+(1, 'Nominee 1', '2014-09-09', 1, 1, 1),
+(3, 'Lorem User', '2022-04-18', 1, 1, 1),
+(4, 'Next nominee', '2022-09-05', 1, 1, 1),
+(9, 'full_name', '2022-09-12', 12, 1, 1),
+(10, 'phone_no', '2022-08-29', 12, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `offline_transaction`
+--
+
+DROP TABLE IF EXISTS `offline_transaction`;
+CREATE TABLE IF NOT EXISTS `offline_transaction` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_id` int(11) NOT NULL,
+  `transaction_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `transaction_id` varchar(50) NOT NULL,
+  `amount` double NOT NULL,
+  `file_url` varchar(100) NOT NULL,
+  `status` int(11) NOT NULL COMMENT '0-pending 1-accepted 2-used 3-rejected',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `offline_transaction`
+--
+
+INSERT INTO `offline_transaction` (`id`, `customer_id`, `transaction_time`, `transaction_id`, `amount`, `file_url`, `status`) VALUES
+(1, 12, '2022-09-15 00:19:43', '788888yy888uu8', 80000, 'jppppkkkkk', 1),
+(2, 12, '2022-09-15 00:25:18', 'TRAN128282828', 89999, '8c3df6dd5373fb7f76ac36217f6507e3__1663181767914.pdf', 2),
+(3, 12, '2022-09-15 01:13:25', '2424424242', 12219, '8c3df6dd5373fb7f76ac36217f6507e3__1663184605123.pdf', 0),
+(4, 12, '2022-09-15 01:15:10', '25255252552525', 3393939, '8c3df6dd5373fb7f76ac36217f6507e3__1663184710849.pdf', 0),
+(5, 12, '2022-09-15 01:15:44', '25255252', 3393939, '8c3df6dd5373fb7f76ac36217f6507e3__1663184744754.pdf', 0);
 
 -- --------------------------------------------------------
 
@@ -300,7 +346,7 @@ CREATE TABLE IF NOT EXISTS `payment` (
   `status` tinyint(4) NOT NULL COMMENT '1-success 0-failed 2-pending',
   `transaction_id` varchar(40) NOT NULL,
   PRIMARY KEY (`payment_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `payment`
@@ -378,7 +424,7 @@ CREATE TABLE IF NOT EXISTS `salary` (
   `insurance` float NOT NULL DEFAULT '0',
   `tax` float NOT NULL DEFAULT '0',
   PRIMARY KEY (`salary_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `salary`
@@ -387,7 +433,11 @@ CREATE TABLE IF NOT EXISTS `salary` (
 INSERT INTO `salary` (`salary_id`, `basic`, `hra`, `conveyance`, `medical`, `special`, `pf`, `insurance`, `tax`) VALUES
 (1, 111.666, 222.99, 99.99, 999.999, 1.99, 444.99, 11.99, 11.99),
 (4, 111.666, 222, 0, 999, 1, 444, 11, 11),
-(5, 111.666, 222.99, 99.99, 999.999, 1.99, 444.99, 11.99, 11.99);
+(5, 111.666, 222.99, 99.99, 999.999, 1.99, 444.99, 11.99, 11.99),
+(6, 10000, 2000, 1000, 1000, 0, 200, 200, 20),
+(7, 2000, 900, 1000, 2000, 100, 100, 10, 10),
+(8, 999, 99, 99, 99, 99, 99, 9, 9),
+(9, 2000, 200, 20, 20, 20, 100, 100, 1000);
 
 -- --------------------------------------------------------
 

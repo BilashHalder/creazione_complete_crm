@@ -4,16 +4,31 @@ import axios from 'axios';
 
 export default function CustomerProfile() {
   const [userInfo, setuserInfo] = useState(null);
-
+  const [docs, setdocs] = useState(null);
   useEffect(() => {
     let user_id = localStorage.getItem("uid")
     axios.get(`${apiUrl}customer/${user_id}`).then((response) => {
       setuserInfo(response.data[0]);
     }).catch((err) => {
       console.log(err);
-    })
-  }, [])
+    });
+  },[]);
 
+  useEffect(()=>{
+    if(userInfo){
+      if(userInfo.document_id){
+        axios.get(`${apiUrl}document/${userInfo.document_id}`).then((response) => {
+          setdocs(response.data[0]);
+          console.log(response.data[0]);
+        }).catch((err) => {
+          console.log(err);
+        });
+      }
+      else{
+        setdocs(-1);
+      }
+    }
+  },[userInfo])
   return (
     <>
       <div class="row">
@@ -33,90 +48,74 @@ export default function CustomerProfile() {
                     </p>
                     <p class="clearfix">
                       <span class="float-left"> Phone </span>
-                      <span class="float-right text-muted"> 006 3435 22 </span>
+                      <span class="float-right text-muted"> {userInfo?userInfo.phone:""} </span>
                     </p>
                     <p class="clearfix">
                       <span class="float-left"> Mail </span>
-                      <span class="float-right text-muted"> Jacod@testmail.com </span>
+                      <span class="float-right text-muted"> {userInfo?userInfo.email:""}</span>
                     </p>
                     <p class="clearfix">
                       <span class="float-left"> Gender </span>
                       <span class="float-right text-muted">
-                        <span>Male</span>
+                        <span>{userInfo?userInfo.gender==0?"Male":userInfo.gender==1? "Female": "Others":<></>}</span>
                       </span>
                     </p>
                   </div>
                   <button class="btn btn-primary btn-block">Preview</button>
                 </div>
                 <div class="col-lg-8">
-                  <div class="mt-4 py-2 border-top border-bottom">
-                    <ul class="nav profile-navbar">
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">
-                          <i class="mdi mdi-account-outline"></i> Info </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link active" href="#">
-                          <i class="mdi mdi-newspaper"></i> Feed </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">
-                          <i class="mdi mdi-calendar"></i> Agenda </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">
-                          <i class="mdi mdi-attachment"></i> Resume </a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="profile-feed">
-                    <div class="d-flex align-items-start profile-feed-item">
-                      <div class="ms-4">
-                        <h6> Mason Beck <small class="ms-4 text-muted"><i class="mdi mdi-clock me-1"></i>10 hours</small>
-                        </h6>
-                        <p> There is no better advertisement campaign that is low cost and also successful at the same time. </p>
-                        <p class="small text-muted mt-2 mb-0">
-                          <span>
-                            <i class="mdi mdi-star me-1"></i>4 </span>
-                          <span class="ms-2">
-                            <i class="mdi mdi-comment me-1"></i>11 </span>
-                          <span class="ms-2">
-                            <i class="mdi mdi-reply"></i>
-                          </span>
-                        </p>
+                  <div class="">
+                    <div class="p-4">
+                      <div class="ms-4 card">
+                        {docs?docs==-1?<>
+                         <form  class="px-5 py-3">
+                         <div class="form-group">
+                        <label for="exampleInputUsername1">Adhar Card No</label>
+                        <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Username"/>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputUsername1">Pan Card No</label>
+                        <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Username"/>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleTextarea1">Address</label>
+                        <textarea class="form-control" id="exampleTextarea1" rows="4"></textarea>
+                      </div>
+                      <button type="submit" class="btn btn-primary me-2">Submit</button>
+                         </form>
+                        </>:<>
+                        <div class="card border border-success pricing-card-body">
+                            <div class="text-center pricing-card-head text-success pt-2">
+                              <h4 class="text-success">Adhar Card </h4>
+                              <p>Verified</p>
+                              <h3 class="font-weight-normal mb-4 ">{docs?docs.adhar_no:""}</h3>
+                            </div>
+                          </div>
+                          <div class="card border border-primary pricing-card-body mt-2">
+                            <div class="text-center pricing-card-head text-primary pt-2">
+                              <h4 class="text-primary">Pan Card </h4>
+                              <p>Verified</p>
+                              <h3 class="font-weight-normal mb-4 ">{docs?docs.pan_no:""}</h3>
+                            </div>
+                          </div>
+                          <div class="card border  pricing-card-body mt-2">
+                            <div class="text-center pricing-card-head  pt-2">
+                              <h3 class="">Address Information </h3>
+                              <address class="font-weight-normal mb-4 ">{docs?docs.address:""}</address>
+                            </div>
+                          </div>
+                        </>:<></>}
                       </div>
                     </div>
                     <div class="d-flex align-items-start profile-feed-item">
                       <div class="ms-4">
-                        <h6> Willie Stanley <small class="ms-4 text-muted"><i class="mdi mdi-clock me-1"></i>10 hours</small>
-                        </h6>
-                        <img src="./assets/images/samples/1280x768/12.jpg" alt="sample" class="rounded mw-100" />
-                        <p class="small text-muted mt-2 mb-0">
-                          <span>
-                            <i class="mdi mdi-star me-1"></i>4 </span>
-                          <span class="ms-2">
-                            <i class="mdi mdi-comment me-1"></i>11 </span>
-                          <span class="ms-2">
-                            <i class="mdi mdi-reply"></i>
-                          </span>
-                        </p>
+                        
                       </div>
                     </div>
                     <div class="d-flex align-items-start profile-feed-item">
                       <div class="ms-4">
-                        <h6> Dylan Silva <small class="ms-4 text-muted"><i class="mdi mdi-clock me-1"></i>10 hours</small>
-                        </h6>
-                        <p> When I first got into the online advertising business, I was looking for the magical combination that would put my website into the top search engine rankings </p>
-                        <img src="./assets/images/samples/1280x768/5.jpg" alt="sample" class="rounded mw-100" />
-                        <p class="small text-muted mt-2 mb-0">
-                          <span>
-                            <i class="mdi mdi-star me-1"></i>4 </span>
-                          <span class="ms-2">
-                            <i class="mdi mdi-comment me-1"></i>11 </span>
-                          <span class="ms-2">
-                            <i class="mdi mdi-reply"></i>
-                          </span>
-                        </p>
+                        
+            
                       </div>
                     </div>
                   </div>

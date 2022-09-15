@@ -59,13 +59,13 @@ export default function SideBar(props) {
         <div class="collapse" id="Transaction">
           <ul class="nav flex-column sub-menu">
             <li class="nav-item mb-1">
-             <div class="nav-link" onClick={()=>handleMenuClick(2)}>Pending</div> 
+             <div class="nav-link" onClick={()=>handleMenuClick(2)}>Offline Transaction</div> 
             </li>
             <li class="nav-item mb-1">
-              <div class="nav-link" onClick={()=>handleMenuClick(3)}>Successfull</div>
+              <div class="nav-link" onClick={()=>handleMenuClick(3)}>Withdrawal Request</div>
             </li>
             <li class="nav-item mb-1">
-              <div class="nav-link" onClick={()=>handleMenuClick(4)}>Rejected</div>
+              <div class="nav-link" onClick={()=>handleMenuClick(4)}>Transaction History</div>
             </li>
           </ul>
         </div>

@@ -22,6 +22,7 @@ const EmployeeRouter=require("./api/employee/employee.route");
 const EmployeeInfoRouter=require("./api/employee_info/employee_info.route");
 const InvestmentRouter=require("./api/investment/invesment.route");
 const NomineeRouter=require("./api/nominee/nominee.route");
+const OffTransaction=require('./api/offline_transaction/offline_transaction.route');
 const PaymentRouter=require("./api/payment/payment.route");
 const QualificationRouter=require("./api/qualification/qualification.route");
 const RequestRouter=require("./api/request/request.route");
@@ -48,7 +49,7 @@ const WorkReportRouter=require("./api/work_report/work_report.route");
 
 
 app.use("/api/agreement",AgreementRouter);
-app.use("/api/associate",validateTocken,AssociateRouter);
+app.use("/api/associate",AssociateRouter);
 app.use("/api/bank_account",BankAccountRouter);
 app.use("/api/customer",CustomerRouter);
 app.use("/api/designation",DesignationRouter);
@@ -57,6 +58,7 @@ app.use("/api/employee",EmployeeRouter);
 app.use("/api/employee_info",EmployeeInfoRouter);
 app.use("/api/investment",InvestmentRouter);
 app.use("/api/nominee",NomineeRouter);
+app.use("/api/off_transaction",OffTransaction);
 app.use("/api/payment",PaymentRouter);
 app.use("/api/qualification",QualificationRouter);
 app.use("/api/request",RequestRouter);

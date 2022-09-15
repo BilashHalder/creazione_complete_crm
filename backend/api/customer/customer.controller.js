@@ -1,4 +1,4 @@
-const { add, update, find, findall, remove,findby } = require("./customer.service");
+const { add, update, find, findall, remove,findby ,isExist } = require("./customer.service");
 const Customer = require('./customer.schema');
 let customer = new Customer();
 const bcrypt = require('bcrypt');
@@ -17,39 +17,52 @@ const Add_ = (request, response) => {
     else if (request.files.image == undefined)
         response.status(400).json({ message: "Invalid Request" });
 
-    else {
-        const hash = bcrypt.hashSync(data.pass, saltRounds);
-        customer.pass = hash;
-        customer.name = data.name;
-        customer.email = data.email;
-        customer.phone = data.phone;
-        customer.status = 1;
-        customer.gender = data.gender;
-        let image = request.files.image;
-        originalname = image.name;
-        fileExt = originalname.split('.').at(-1);
-        if (fileExt != 'jpg' && fileExt != 'jpeg' && fileExt != 'png')
-            response.status(400).json({ message: "Invalid Image" });
-        else if (image.size > 2000000)
-            response.status(400).json({ message: "File size To large" });
-        else {
-            let newName = image.md5 + '__' + Date.now() + '' + '.' + fileExt;
-            let uploadPath = (__dirname + '../../../uploads/images/' + newName);
-            image.mv(uploadPath, function (err) {
-                if (err)
-                    response.status(500).json({ message: "Internal Server Error" });
+    else{
+        let temp={};
+        temp.phone=data.phone;
+        temp.email=data.email;
+        isExist(temp,(err,result)=>{
+            if (err)
+            response.status(500).json({ message: "Internal Server Error" });
+            else if(result.length!=0)
+            response.status(500).json({ message: "Email or phone already registerd" });
+            else {
+                const hash = bcrypt.hashSync(data.pass, saltRounds);
+                customer.pass = hash;
+                customer.name = data.name;
+                customer.email = data.email;
+                customer.phone = data.phone;
+                customer.status = 1;
+                customer.gender = data.gender;
+                customer.associate_id=data.associate_id?data.associate_id:null;
+                let image = request.files.image;
+                originalname = image.name;
+                fileExt = originalname.split('.').at(-1);
+                if (fileExt != 'jpg' && fileExt != 'jpeg' && fileExt != 'png')
+                    response.status(400).json({ message: "Invalid Image" });
+                else if (image.size > 2000000)
+                    response.status(400).json({ message: "File size To large" });
                 else {
-                    customer.image = newName;
-                    add(customer, (err, result) => {
+                    let newName = image.md5 + '__' + Date.now() + '' + '.' + fileExt;
+                    let uploadPath = (__dirname + '../../../uploads/images/' + newName);
+                    image.mv(uploadPath, function (err) {
                         if (err)
                             response.status(500).json({ message: "Internal Server Error" });
                         else {
-                            response.status(201).json({ message: "data saved successfully", data: result });
+                            customer.image = newName;
+                            add(customer, (err, result) => {
+                                if (err)
+                                    response.status(500).json({ message: "Internal Server Error" });
+                                else {
+                                    response.status(201).json({ message: "data saved successfully", data: result });
+                                }
+                            });
                         }
                     });
                 }
-            });
-        }
+            }
+            
+        })
     }
 }
 

@@ -2,9 +2,9 @@ const dbcon = require("../../config/mysql_db_config");
 
 
 const add = (customer, callBack) => {
-    let {name,gender, email, phone,document_id,pass,image}=customer;
-    dbcon.query('INSERT INTO customer(name,gender, email, phone,document_id,pass,image) VALUES (?,?,?,?,?,?,?)',
-     [name,gender, email, phone,document_id,pass,image], (err, result, fields) => {
+    let {name,gender, email, phone,document_id,pass,image,associate_id}=customer;
+    dbcon.query('INSERT INTO customer(name,gender, email, phone,document_id,pass,image,associate_id) VALUES (?,?,?,?,?,?,?,?)',
+     [name,gender, email, phone,document_id,pass,image,associate_id], (err, result, fields) => {
         if(err)
         return callBack(err);
         else{
@@ -57,4 +57,12 @@ const findby = (emailorphone, callBack) => {
         return callBack(null,result);
     });
 }
-module.exports={add,update,find,findall,remove,findby}
+const isExist=(customer,callBack)=>{
+    const {email,phone}=customer;
+    dbcon.query('SELECT * from customer WHERE email=? or phone=?', [email,phone], (err, result, fields) => {
+        if(err)
+        return callBack(err);
+        return callBack(null,result);
+    });
+}
+module.exports={add,update,find,findall,remove,findby,isExist}

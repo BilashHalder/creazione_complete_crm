@@ -46,19 +46,19 @@ export default function AllCustomer() {
       }
   return (
     <div className='row px-4'>
-    <div class="col-12 grid-margin stretch-card">
-    <div class="card">
+    <div className="col-12 grid-margin stretch-card">
+    <div className="card">
 
 
     
-                  <div class="card-body">
+                  <div className="card-body">
                     {
-                      isloading?<div class="spinner-border text-primary" role="status">
-                      <span class="visually-hidden">Loading...</span>
+                      isloading?<div className="spinner-border text-primary" role="status">
+                      <span className="visually-hidden">Loading...</span>
                        </div>:
                        <>
-                       <h3 class="card-title text-center">All Customer </h3>
-                    <table class="table table-bordered table-responsive">
+                       <h3 className="card-title text-center">All Customer </h3>
+                    <table className="table table-bordered table-responsive">
                         <thead>
                           <tr >
                             <th> Id </th>
@@ -69,7 +69,6 @@ export default function AllCustomer() {
                             <th> Images </th>
                             <th> Status </th>
                             <th> Edit </th>
-                            <th> Delete </th>
                           </tr>
                         </thead>
                         <tbody>
@@ -84,8 +83,7 @@ export default function AllCustomer() {
                                   <td> {item.gender==0?"Male":item.gender==1?"Female":"Others"} </td>
                                   <td> <img src={`http://localhost:5000/uploads/images/${item.image}`} /> </td>
                                   <td>{item.status==0?"Deactive":"Active"}</td>
-                                  <td><button onClick={()=>{customerEdit(i)}} class="btn btn-outline-warning">Edit</button></td>
-                                  <td><button onClick={()=>{customerDelete(i)}} class="btn btn-outline-danger">Delete</button></td>
+                                  <td><button onClick={()=>{customerEdit(i)}} className="btn btn-outline-warning">Edit</button></td>
                                 </tr>
                                 )
                               })
@@ -106,21 +104,23 @@ export default function AllCustomer() {
       >
         {
           edit!=null?<Box sx={style}>
-          <h3 class="text-center">Edit Customer Information</h3>
-             <div class='row'>
-             <div class="col-md-4 ">
-             <label for="recipient-name" class="col-form-label">Full Name</label>
-             <input type="text" class="form-control" id="name" value={customers[edit].name}/>
+          <h3 className="text-center">Edit Customer Information</h3>
+             <form>
+             <div className='row'>
+             <div className="col-md-4 ">
+             <label htmlFor="recipient-name" className="col-form-label">Full Name</label>
+             <input type="text" className="form-control" id="name" value={customers[edit].name}/>
              </div>
-             <div class="col-md-4">
-             <label for="recipient-name" class="col-form-label">Email</label>
-             <input type="email" class="form-control" id="email" value={customers[edit].email}/>
+             <div className="col-md-4">
+             <label htmlFor="recipient-name" className="col-form-label">Email</label>
+             <input type="email" className="form-control" id="email" value={customers[edit].email}/>
              </div>
-             <div class="col-md-4">
-             <label for="recipient-name" class="col-form-label">Phone No</label>
-             <input type="number" class="form-control" id="phone" value={customers[edit].phone}/>
+             <div className="col-md-4">
+             <label htmlFor="recipient-name" className="col-form-label">Phone No</label>
+             <input type="number" className="form-control" id="phone" value={customers[edit].phone}/>
              </div>
             </div>
+             </form>
              
         </Box>:  <></>
         }
