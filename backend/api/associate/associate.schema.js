@@ -9,6 +9,7 @@ class Associate {
         this.image = image == "" ? null : image;
         this.gender=gender==-1?null:gender;
         this.status = status == -1 ? null : status;
+        
     }
 }
 module.exports = Associate;

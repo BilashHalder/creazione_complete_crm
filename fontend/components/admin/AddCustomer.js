@@ -180,7 +180,8 @@ useEffect(()=>{
                       
 
                      <div class="row">
-                     <div class='col-md-6'><button type="submit" class="btn btn-primary me-2">Submit</button>
+                     <div class='col-md-6'>
+                      <button type="submit" class="btn btn-primary me-2">Submit</button>
                       <button class="btn btn-light" onClick={resetForm}>Reset</button></div>
                      <div class="col-md-6 pt-4">
                      <img src={image} alt="" />

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Sep 15, 2022 at 09:25 AM
+-- Generation Time: Sep 16, 2022 at 09:18 AM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -62,24 +62,22 @@ CREATE TABLE IF NOT EXISTS `associate` (
   `name` varchar(60) NOT NULL,
   `gender` tinyint(4) NOT NULL COMMENT '0-male 1-female 2-others',
   `email` varchar(80) NOT NULL,
+  `commission_rate` int(11) NOT NULL,
+  `employee_id` int(11) DEFAULT NULL COMMENT '0-admin anyid-employee id',
   `phone` varchar(15) NOT NULL,
   `document_id` int(11) DEFAULT NULL,
   `pass` varchar(100) NOT NULL,
   `image` varchar(100) NOT NULL,
   `status` int(11) NOT NULL DEFAULT '1' COMMENT '1-active 0-not active',
   PRIMARY KEY (`associate_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `associate`
 --
 
-INSERT INTO `associate` (`associate_id`, `name`, `gender`, `email`, `phone`, `document_id`, `pass`, `image`, `status`) VALUES
-(1, 'Associate New', 0, 'associate@gmail.com', '9876543210', 1, '$2b$10$PgjVo6EpGkMtzmqnt/rMYOD0DjOa0/Th7a8gMet4R51iiiqhPIj8e', '', 1),
-(2, 'Associate user', 1, 'associate@gmail.com', '9898989898', NULL, '$2b$10$PgjVo6EpGkMtzmqnt/rMYOD0DjOa0/Th7a8gMet4R51iiiqhPIj8e', '7af91f951b43200c0786517742caf90e#_#1662811037921.jpg', 1),
-(4, 'thunder ', 1, 'email@email.com', '1111111', NULL, '$2a$10$3WOQwGprz7JDjLdlczAtNOQbhoePiXm6vZW88Ok2FIr64PE12Io7m', '0f04ba650595a3cab8f3dad2321caf46#_#1662906596207.png', 1),
-(5, 'thunder ', 1, 'email@email.com', '1111111', NULL, '$2a$10$3WOQwGprz7JDjLdlczAtNOQbhoePiXm6vZW88Ok2FIr64PE12Io7m', '0f04ba650595a3cab8f3dad2321caf46#_#1662906751162.png', 1),
-(6, 'update name', 0, 'update@u', '12292929', NULL, '$2a$10$3WOQwGprz7JDjLdlczAtNOQbhoePiXm6vZW88Ok2FIr64PE12Io7m', '0f04ba650595a3cab8f3dad2321caf46#_#1662908315791.png', 1);
+INSERT INTO `associate` (`associate_id`, `name`, `gender`, `email`, `commission_rate`, `employee_id`, `phone`, `document_id`, `pass`, `image`, `status`) VALUES
+(9, 'supriya mondal', 0, 'rahul@gmail.com', 1, NULL, '9647157187', NULL, '$2b$10$WQ8qziKncRhTNVoldag51Om0nzbuZUN7E7Jy2fff7ccDO7dHWxtee', '2ecf6cad2010d0402807802f0311fc8a__1663315731732.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -129,23 +127,15 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `image` varchar(100) NOT NULL,
   `status` int(11) NOT NULL DEFAULT '1' COMMENT '1-active 0-not active',
   PRIMARY KEY (`customer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `customer`
 --
 
 INSERT INTO `customer` (`customer_id`, `name`, `gender`, `email`, `phone`, `document_id`, `associate_id`, `pass`, `image`, `status`) VALUES
-(1, 'Customer Bhai', 1, 'customer@gmail.com', '1234567890', 0, NULL, 'sjadksgdsjgdkjasgdkasjdgkasgdakj', '', 1),
-(2, 'Demo Customer', 1, 'a@a.com', '555555555', NULL, NULL, '$2b$10$PgjVo6EpGkMtzmqnt/rMYOD0DjOa0/Th7a8gMet4R51iiiqhPIj8e', '83f317fa3fd7378b5f63efc3888bef19#_#1662824083203.jpg', 1),
-(7, 'Sachin', 2, 'Sachin@gmail.com', '6666666666', NULL, NULL, '$2b$10$.j216TPrbiITPtw88.V2bejOWkRphv9DjItFqJMEs6A1h1xbLhWD2', '4a7beacc921ed4c4b0fdc72e9676026f#_#1662879516407.jpg', 1),
-(8, 'Sachin', 2, 'Sachin@gmail.com', '6666666666', NULL, NULL, '$2b$10$gjQZhuQepHIts34fpfTfC.ME7zZwjxY9Qg0Ai4cc3cXHbp56pfyZW', '4a7beacc921ed4c4b0fdc72e9676026f#_#1662879603274.jpg', 1),
-(9, 'update name', 0, 'update@u', '12292929', NULL, NULL, '$2b$10$kFyHEs8Py1/nl/5LchkMgOGPmetzm9IP8hPsZ0li.1HoTCUXAA1GO', '0f04ba650595a3cab8f3dad2321caf46#_#1662909223443.png', 1),
-(11, 'Dummy User', 0, 'dummy@user.com', '9876543232', NULL, NULL, '$2b$10$0QxnypzdLeNCMSdIlFVbIuWXGnmtdhGHgwR7q/nwWJ6aAguY.uUDi', '4ff34c5498fa99db7a51952b9271078d___1662967905098.jpg', 1),
-(12, 'Rahul Das', 0, 'rahul@gmail.com', '9876543210', 1, NULL, '$2b$10$y/ytO68EbgdonR8ehTE2p.7Kzux8OCDPscfP9xrPTcCg3rBPeHcpm', '9fac8c1e0763053e0eed5e5052ff931b__1663053875341.jpg', 1),
-(13, 'Demo Customer', 1, 'customer@gmail.com', '13425678902', NULL, NULL, '$2b$10$6xqA6AoU/RsB8eAfI.YBt.GJFU6YkOvOVDccLE51MNa9FLjZ8smVC', 'd16e999e252ac35a37118947b1a4910d__1663222829464.jpg', 1),
-(14, 'Demo Customer', 1, 'customer2@gmail.com', '13425678902', NULL, NULL, '$2b$10$PbHj7ZK8t7/NIr72Pg6V7OMrBrgkNiP4ZmFTX6.B4h/s8JRbPmeJa', 'd16e999e252ac35a37118947b1a4910d__1663222855009.jpg', 1),
-(15, 'Demo Customer', 1, 'customer@gmail.com', '13425678902', NULL, NULL, '$2b$10$VDbnQ24r4VhHuGxWpqrhqeqcOPmPjzk9t2PtFtTF58G1R.bZGBUQO', 'd16e999e252ac35a37118947b1a4910d__1663222891398.jpg', 1);
+(22, 'shaoli pandey', 0, 'rahul@gmail.com', '9647157187', NULL, 9, '$2b$10$q3OdRqLwaFGJTnEPTQJSF.PuvPBQEmCgk7BctcpIiF8RMm/Z6ekDK', '7dd8cb08149743d65524479be35b5d48__1663315881773.jpg', 1),
+(23, 'NILOTPAL PRASAD', 0, 'avishek.creazioneservices@gmail.com', '9073191111', NULL, 9, '$2b$10$V8Q1Pqrb.ydaa6glXawOFeugz/o7pXf1EjINvQ5iNJ/uY1FpbHgRm', '0679033f36a20adefcf1760c9a59a885__1663318363104.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -158,18 +148,14 @@ CREATE TABLE IF NOT EXISTS `designation` (
   `designation_id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) NOT NULL,
   PRIMARY KEY (`designation_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `designation`
 --
 
 INSERT INTO `designation` (`designation_id`, `title`) VALUES
-(1, 'developer'),
-(3, 'Manager'),
-(4, 'Software Developer'),
-(5, 'Software Tester'),
-(6, 'HR');
+(7, 'Web developer');
 
 -- --------------------------------------------------------
 
@@ -214,16 +200,14 @@ CREATE TABLE IF NOT EXISTS `employee` (
   `image` varchar(100) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '1' COMMENT '1-active 0-not active',
   PRIMARY KEY (`employee_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `employee`
 --
 
 INSERT INTO `employee` (`employee_id`, `name`, `gender`, `email`, `phone`, `document_id`, `pass`, `image`, `status`) VALUES
-(1, 'Employee One', 0, 'employee@gmail.com', '8778786543', 0, 'jbsakdjkasgdjas cnbsjbcxasuhdiuqsydqwiydqw', NULL, 1),
-(2, '123456', 1, 'customer@gmail.ccm', '123456222', NULL, '$2b$10$ZrhxVf/1UpvJ6/NhQwZQuOlSMGVQr7QQgT2Kky0HoIKHMQILvlRd2', '736ec0d93068fe61207fccff789a7e2e#_#1662827507275.jpg', 1),
-(3, 'Employee rrr', 1, 'customer@gmail.ccm', '123456222', NULL, '$2b$10$Dxy8EVwp5qcBnWiqdXMiTOJTpnACTUHI0ge8MDgoub1OU3CKRjBxC', NULL, 1);
+(11, 'moumita mondal', 1, 'mondal.moumita@gmail.com', '9647157187', NULL, '$2b$10$JQY/bag2.apoLa2t1/d/S.rFSOnwYxvsjRBXUuv3rn7GuIOwKxSTa', '15220c3cc3612ded92fc5c40ba586802__1663315606653.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -239,9 +223,20 @@ CREATE TABLE IF NOT EXISTS `employee_info` (
   `dob` date NOT NULL,
   `report_to` int(11) DEFAULT NULL,
   `joining_date` date NOT NULL,
-  `acceptance_file` varchar(100) NOT NULL,
+  `acceptance_file` varchar(100) DEFAULT NULL,
   `id_card` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `employee_info`
+--
+
+INSERT INTO `employee_info` (`employee_id`, `designation_id`, `salary_id`, `dob`, `report_to`, `joining_date`, `acceptance_file`, `id_card`) VALUES
+(7, 4, 4, '2022-08-30', NULL, '2022-09-28', NULL, 0),
+(8, 4, 5, '2022-09-28', NULL, '2022-09-20', NULL, 0),
+(9, 4, 6, '1994-11-08', NULL, '2022-11-11', NULL, 0),
+(10, 4, 5, '1999-11-11', NULL, '2022-11-11', NULL, 0),
+(11, 7, 10, '2000-02-10', NULL, '2021-12-08', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -424,20 +419,15 @@ CREATE TABLE IF NOT EXISTS `salary` (
   `insurance` float NOT NULL DEFAULT '0',
   `tax` float NOT NULL DEFAULT '0',
   PRIMARY KEY (`salary_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `salary`
 --
 
 INSERT INTO `salary` (`salary_id`, `basic`, `hra`, `conveyance`, `medical`, `special`, `pf`, `insurance`, `tax`) VALUES
-(1, 111.666, 222.99, 99.99, 999.999, 1.99, 444.99, 11.99, 11.99),
-(4, 111.666, 222, 0, 999, 1, 444, 11, 11),
-(5, 111.666, 222.99, 99.99, 999.999, 1.99, 444.99, 11.99, 11.99),
-(6, 10000, 2000, 1000, 1000, 0, 200, 200, 20),
-(7, 2000, 900, 1000, 2000, 100, 100, 10, 10),
-(8, 999, 99, 99, 99, 99, 99, 9, 9),
-(9, 2000, 200, 20, 20, 20, 100, 100, 1000);
+(10, 4500, 500, 1500, 500, 500, 1500, 500, 100),
+(11, 4000, 4000, 1000, 500, 500, 100, 100, 100);
 
 -- --------------------------------------------------------
 

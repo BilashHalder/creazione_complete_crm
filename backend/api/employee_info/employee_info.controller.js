@@ -29,7 +29,19 @@ const FindAll_=(request,response)=>{
 }
 
 const Add_=(request,response)=>{
-   
+   const {employee_id,designation_id,salary_id,dob,joining_date}=request.body;
+   if(employee_id==undefined|| designation_id==undefined|| salary_id==undefined||dob==undefined||joining_date==undefined)
+   response.status(400).json({message:"Invalid Request"});
+   else{
+    add(request.body,(err,result)=>{
+        if(err)
+        response.status(500).json({message:"Internal Server Error"});
+        else {
+            response.status(201).json({data:result});
+        }
+    })
+   }
+
    
     
 }

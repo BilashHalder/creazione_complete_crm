@@ -3,8 +3,8 @@ const dbcon = require("../../config/mysql_db_config");
 
 
 const add = (employee, callBack) => {
-    const {employee_id,designation_id,salary_id,dob,report_to,joining_date,acceptance_file, id_card}=employee;
-    dbcon.query('INSERT INTO employee_info(employee_id,designation_id,salary_id,dob,report_to,joining_date,acceptance_file, id_card) VALUES (?,?,?,?,?,?,?,?)', [], (err, result, fields) => {
+    const {employee_id,designation_id,salary_id,dob,joining_date}=employee;
+    dbcon.query('INSERT INTO employee_info(employee_id,designation_id,salary_id,dob,joining_date) VALUES (?,?,?,?,?)', [employee_id,designation_id,salary_id,dob,joining_date], (err, result, fields) => {
         if(err)
         return callBack(err);
         else{

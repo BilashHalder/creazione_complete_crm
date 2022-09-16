@@ -9,7 +9,7 @@ var jwt = require('jsonwebtoken');
 
 const Add_ = (request, response) => {
     let data = request.body;
-    if (data.name == undefined || data.phone == undefined || data.email == undefined || data.pass == undefined || data.gender == undefined)
+    if (data.name == undefined || data.phone == undefined || data.email == undefined || data.pass == undefined || data.gender == undefined ||data.commission_rate==undefined)
         response.status(400).json({ message: "Invalid Request" });
     else if (request.files == undefined)
         response.status(400).json({ message: "Invalid Request" });
@@ -22,6 +22,7 @@ const Add_ = (request, response) => {
         associate.name = data.name;
         associate.email = data.email;
         associate.phone = data.phone;
+        associate.commission_rate=data.commission_rate;
         associate.status = 1;
         associate.gender = data.gender;
         let image = request.files.image;
@@ -64,7 +65,7 @@ const Update_ = (request, response) => {
                 response.status(404).json({ message: "Invalid request" });
             else {
                 let temp = result[0];
-                const { name, gender, email, phone, document_id, pass, image, status, associate_id } = request.body;
+                const { name, gender, email, phone, document_id, pass, image, status, associate_id,commission_rate } = request.body;
                 temp.name = name ? name : temp.name;
                 temp.gender = gender != undefined ? gender : temp.gender;
                 temp.email = email ? email : temp.email;
@@ -72,6 +73,7 @@ const Update_ = (request, response) => {
                 temp.document_id = document_id ? document_id : temp.document_id;
                 temp.status = status != undefined ? status : temp.status;
                 temp.pass = pass ? bcrypt.hashSync(pass, saltRounds) : temp.pass;
+                temp.commission_rate=commission_rate?commission_rate:temp.commission_rate;
                 if (request.files == undefined)
                     {
                         temp.image = temp.image;
