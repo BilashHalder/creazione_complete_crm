@@ -34,7 +34,7 @@ const Add_ = (request, response) => {
                 customer.phone = data.phone;
                 customer.status = 1;
                 customer.gender = data.gender;
-                customer.associate_id=data.associate_id?data.associate_id:null;
+                customer.referred_by=data.referred_by?data.referred_by:null;
                 let image = request.files.image;
                 originalname = image.name;
                 fileExt = originalname.split('.').at(-1);

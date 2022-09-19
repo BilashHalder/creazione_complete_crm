@@ -1,5 +1,5 @@
 class Customer {
-    constructor(customer_id = null, name = "", gender = 99, email = "", phone = "", document_id = 0, pass = "", image = "", status = 99,associate_id=-1) {
+    constructor(customer_id = null, name = "", gender = 99, email = "", phone = "", document_id = 0, pass = "", image = "", status = 99,referred_by="") {
         this.customer_id = customer_id;
         this.name = name == "" ? null : name;
         this.email = email == "" ? null : email;
@@ -9,7 +9,7 @@ class Customer {
         this.image = image == "" ? null : image;
         this.status = status == 99 ? null : status;
         this.gender = status == 99 ? null : gender;
-        this.associate_id=associate_id==-1?null:associate_id;
+        this.referred_by=referred_by==""?null:referred_by;
 
     }
 }

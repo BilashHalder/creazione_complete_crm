@@ -9,7 +9,7 @@ var jwt = require('jsonwebtoken');
 
 const Add_ = (request, response) => {
     let data = request.body;
-    if (data.name == undefined || data.phone == undefined || data.email == undefined || data.pass == undefined || data.gender == undefined ||data.commission_rate==undefined)
+    if (data.name == undefined || data.phone == undefined || data.email == undefined || data.pass == undefined || data.gender == undefined ||data.commission_rate==undefined || data.employee_id==undefined)
         response.status(400).json({ message: "Invalid Request" });
     else if (request.files == undefined)
         response.status(400).json({ message: "Invalid Request" });
@@ -22,6 +22,7 @@ const Add_ = (request, response) => {
         associate.name = data.name;
         associate.email = data.email;
         associate.phone = data.phone;
+        associate.employee_id=data.employee_id;
         associate.commission_rate=data.commission_rate;
         associate.status = 1;
         associate.gender = data.gender;
@@ -65,12 +66,13 @@ const Update_ = (request, response) => {
                 response.status(404).json({ message: "Invalid request" });
             else {
                 let temp = result[0];
-                const { name, gender, email, phone, document_id, pass, image, status, associate_id,commission_rate } = request.body;
+                const { name, gender, email, phone,commission_rate,employee_id, document_id, pass, image, status, associate_id} = request.body;
                 temp.name = name ? name : temp.name;
                 temp.gender = gender != undefined ? gender : temp.gender;
                 temp.email = email ? email : temp.email;
                 temp.phone = phone ? phone : temp.phone;
                 temp.document_id = document_id ? document_id : temp.document_id;
+                temp.employee_id=employee_id?employee_id:temp.employee_id;
                 temp.status = status != undefined ? status : temp.status;
                 temp.pass = pass ? bcrypt.hashSync(pass, saltRounds) : temp.pass;
                 temp.commission_rate=commission_rate?commission_rate:temp.commission_rate;

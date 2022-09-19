@@ -2,9 +2,9 @@ const dbcon = require("../../config/mysql_db_config");
 
 
 const add = (customer, callBack) => {
-    let {name,gender, email, phone,document_id,pass,image,associate_id}=customer;
-    dbcon.query('INSERT INTO customer(name,gender, email, phone,document_id,pass,image,associate_id) VALUES (?,?,?,?,?,?,?,?)',
-     [name,gender, email, phone,document_id,pass,image,associate_id], (err, result, fields) => {
+    let {name,gender, email, phone,document_id,pass,image,referred_by}=customer;
+    dbcon.query('INSERT INTO customer(name,gender, email, phone,document_id,pass,image,referred_by) VALUES (?,?,?,?,?,?,?,?)',
+     [name,gender, email, phone,document_id,pass,image,referred_by], (err, result, fields) => {
         if(err)
         return callBack(err);
         else{

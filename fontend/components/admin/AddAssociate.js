@@ -6,6 +6,8 @@ const axios = require('axios').default;
 
 export default function AddAssociate() {
 
+
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -18,6 +20,7 @@ export default function AddAssociate() {
   const [err, setErr] = useState();
   const [success, setSucess] = useState("");
   const [message, setMessage] = useState("");
+  const [employee_id, setemployee_id] = useState("");
   const onImageChange = (e) => {
     const [file] = e.target.files;
     setImage(URL.createObjectURL(file));
@@ -62,6 +65,7 @@ export default function AddAssociate() {
       formData.append('pass', password);
       formData.append('gender', gender)
       formData.append('phone', phone);
+      formData.append('employee_id', employee_id);
       formData.append('commission_rate',commission_rate);
       axios.post(`${apiUrl}associate`, formData, {
         headers: {
@@ -88,6 +92,16 @@ export default function AddAssociate() {
 
 
   }
+  const [employees, setemployees] = useState();
+
+  useEffect(() => {
+    axios.get(`${apiUrl}employee`).then((response) => {
+      setemployees(response.data);
+      console.log(response.data)
+    }).catch((err) => {
+      console.log(err);
+    });
+  }, []);
 
 
   return (
@@ -138,17 +152,36 @@ export default function AddAssociate() {
                 </div>
                 <div className="col-md-4">
                   <div className="form-group">
-                    <label for="exampleInputCity1">Commision Rate</label>
+                    <label htmlFor="exampleInputCity1">Commision Rate</label>
                     <input type="number" className="form-control" id="commission_rate" placeholder="Commision Rate" value={commission_rate} onChange={(e) => setcommission_rate(e.target.value)} required min={0}/>
                   </div>
                 </div>
-                <div className="col-md-6">
+                <div className="col-md-4">
+                  <div className="form-group">
+                    <label htmlFor="employee_id">Employee </label>
+                    {
+                      employees ? <>
+                        <select className="form-control" id="employee_id" name="employee_id" required value={employee_id} onChange={(e) => setemployee_id(e.target.value)}>
+                          <option >Please Select</option>
+                          {
+                            employees.map((item, index) => {
+                              return (<option key={index} value={item.employee_id}>{item.name}</option>)
+                            })
+                          }
+                        </select>
+                      </> : <><p>Please Add Employee First</p></>
+                    }
+
+                  </div>
+                </div>
+
+                <div className="col-md-4">
                   <div className="form-group">
                     <label htmlFor="pass">Password</label>
                     <input type="password" className="form-control" id="pass" name="pass" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
                   </div>
                 </div>
-                <div className="col-md-6">
+                <div className="col-md-4">
                   <div className="form-group">
                     <label htmlFor="cpass">Confirm Password</label>
                     <input type="password" className="form-control" id="cpass" name="cpass" placeholder="Confirm Password" value={cpassword} onChange={(e) => setCpassword(e.target.value)} required />

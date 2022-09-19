@@ -2,11 +2,14 @@ const dbcon = require("../../config/mysql_db_config");
 
 
 const add = (associate, callBack) => {
-    let {name,gender, email, phone,commission_rate,pass,image}=associate;
-    dbcon.query('INSERT INTO associate(name,gender, email, phone,commission_rate,pass,image) VALUES (?,?,?,?,?,?,?)',
-     [name,gender, email, phone,commission_rate,pass,image], (err, result, fields) => {
+    let {name,gender, email, phone,commission_rate,employee_id,pass,image}=associate;
+    dbcon.query('INSERT INTO associate(name,gender, email, phone,commission_rate,employee_id,pass,image) VALUES (?,?,?,?,?,?,?,?)',
+     [name,gender, email, phone,commission_rate,employee_id,pass,image], (err, result, fields) => {
         if(err)
-        return callBack(err);
+        {
+            console.log(err)
+            return callBack(err);
+        }
         else{
             find(result.insertId,(err,res)=>{
                 if(err)
@@ -19,11 +22,16 @@ const add = (associate, callBack) => {
 }
 
 const update = (associate, callBack) => {
-    const {name,gender, email, phone,document_id,pass,image,status,associate_id}=associate;
-    dbcon.query('UPDATE associate SET name=?,gender=?,email=?,phone=?,document_id=?,pass=?,image=?,status=? WHERE associate_id=?',
-     [name,gender,email, phone,document_id,pass,image,status,associate_id], (err, result, fields) => {
+    const {name,gender, email, phone,commission_rate,employee_id,document_id,pass,image,status,associate_id}=associate;
+    dbcon.query('UPDATE associate SET name=?,gender=?,email=?,phone=?,commission_rate=?,employee_id=?,document_id=?,pass=?,image=?,status=? WHERE associate_id=?',
+     [name,gender,email, phone,commission_rate,employee_id,document_id,pass,image,status,associate_id], (err, result, fields) => {
         if(err)
-        return callBack(err);
+        {
+            console.log(err)
+            return callBack(err);
+
+        }
+        else
         return callBack(null,result);
     });
 }

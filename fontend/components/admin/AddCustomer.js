@@ -3,13 +3,6 @@ const validator = require('validator');
 import { apiUrl, imageUrl } from '../../locale';
 const axios = require('axios').default;
 export default function AddCustomer() {
-useEffect(()=>{
-  axios.get(`${apiUrl}associate`).then((response) => {
-    setassociates(response.data);
-  }).catch((err) => {
-    console.log(err);
-  });
-},[])
   const handleForm=(e)=>{
     e.preventDefault();
 
@@ -22,7 +15,7 @@ useEffect(()=>{
     validator.isMobilePhone(phone)?e.target.phone.classList.remove("inp-err"):e.target.phone.classList.add("inp-err")
     phone.toString().length<10?e.target.phone.classList.add("inp-err"):e.target.phone.classList.remove("inp-err");
     gender==-1?e.target.gender.classList.add("inp-err"):e.target.gender.classList.remove("inp-err");
-    associateId==-1?e.target.associate_id.classList.add("inp-err"):e.target.associate_id.classList.remove("inp-err");
+    referred_by==""?e.target.referred_by.classList.add("inp-err"):e.target.referred_by.classList.remove("inp-err");
     image==null?e.target.image.classList.add("inp-err"):e.target.image.classList.remove("inp-err");
     password==null?e.target.password.classList.add("inp-err"):e.target.password.classList.remove("inp-err");
     cpassword==null?e.target.cpassword.classList.add("inp-err"):e.target.cpassword.classList.remove("inp-err");
@@ -36,8 +29,8 @@ useEffect(()=>{
     formData.append('pass',password);
     formData.append('gender',gender)
     formData.append('phone',phone);
-    formData.append('associate_id',associateId)
-    axios.post('http://localhost:5000/api/customer', formData, {
+    formData.append('referred_by',referred_by)
+    axios.post(`${apiUrl}customer`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
@@ -49,7 +42,7 @@ useEffect(()=>{
     setEmail("");
     setPhone("");
     setGender(-1);
-    setassociateId(-1);
+    setreferred_by("");
     setPassword("");
     setCpassword("")
     setImage(null);
@@ -91,11 +84,10 @@ useEffect(()=>{
   const [cpassword, setCpassword] = useState();
   const [image, setImage] = useState("");
   const [err, setErr] = useState();
-  const [associateId, setassociateId] = useState(-1)
+  const [referred_by, setreferred_by] = useState("")
   const [success, setSucess] = useState("");
   const [message, setMessage] = useState("")
 
-  const [associates, setassociates] = useState()
   return (
     <div className='row'>
     <div class="col-12 grid-margin stretch-card">
@@ -137,16 +129,8 @@ useEffect(()=>{
                         </div>
                         <div class="col-md-4">
                         <div class="form-group">
-                        <label htmlFor="associate">Select Associate</label>
-                        {associates?<>
-                          <select class="form-control" id="associate"name="associate_id" value={associateId} onChange={(e)=> setassociateId(e.target.value)}>
-                          <option value={-1}>Please Select</option>
-                         {associates.map((item,index)=>{
-                          return(<option key={index} value={item.associate_id}>{item.name}</option>)
-                         })}
-                        </select>
-                        </>:<><p>please add associate</p></>}
-                        
+                        <label htmlFor="referred_by">Referrel Id</label>
+                        <input type="text" class="form-control"  id="referred_by"  name="referred_by" placeholder="Referrel Id"value={referred_by} onChange={(e)=> setreferred_by(e.target.value)}/>
                       </div>
                         </div>
                         <div class="col-md-4">

@@ -139,6 +139,11 @@ export default function Salary() {
                       <input type="number" className="form-control" id="Tax" min={0} placeholder="Tax" value={tax} onChange={(e) => settax(e.target.value)} required />
                     </div>
                   </div>
+                  {/* <div className='col-md-4'>
+                   <p> Total Salary: {total} </p>
+                   <p> Deduction: {deduction}</p>
+                   <p> In Hand : {inhand}</p>
+                  </div> */}
                 </div>
                 {
                   message ? <div className={err ? "alert alert-danger" : success ? "alert alert-success" : "hide"} role="alert"> {message} </div> : <></>
