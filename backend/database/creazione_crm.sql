@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Sep 16, 2022 at 09:18 AM
+-- Generation Time: Sep 19, 2022 at 08:32 AM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -20,6 +20,22 @@ SET time_zone = "+00:00";
 --
 -- Database: `creazione_crm`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin`
+--
+
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE IF NOT EXISTS `admin` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `image` varchar(100) NOT NULL,
+  `pass` varchar(100) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -70,14 +86,15 @@ CREATE TABLE IF NOT EXISTS `associate` (
   `image` varchar(100) NOT NULL,
   `status` int(11) NOT NULL DEFAULT '1' COMMENT '1-active 0-not active',
   PRIMARY KEY (`associate_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `associate`
 --
 
 INSERT INTO `associate` (`associate_id`, `name`, `gender`, `email`, `commission_rate`, `employee_id`, `phone`, `document_id`, `pass`, `image`, `status`) VALUES
-(9, 'supriya mondal', 0, 'rahul@gmail.com', 1, NULL, '9647157187', NULL, '$2b$10$WQ8qziKncRhTNVoldag51Om0nzbuZUN7E7Jy2fff7ccDO7dHWxtee', '2ecf6cad2010d0402807802f0311fc8a__1663315731732.jpg', 1);
+(9, 'supriya mondal', 0, 'rahul@gmail.com', 1, NULL, '9647157187', NULL, '$2b$10$WQ8qziKncRhTNVoldag51Om0nzbuZUN7E7Jy2fff7ccDO7dHWxtee', '2ecf6cad2010d0402807802f0311fc8a__1663315731732.jpg', 1),
+(10, 'Bilash Halder', 1, 'rahul@gmail.com', 5, 11, '9999888777', NULL, '$2b$10$OMkQ23tt4y.NHr80oaY1PuysUE5VSwFVj2yK57FtxBpqX.OXdpxtS', '736ec0d93068fe61207fccff789a7e2e__1663397820351.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -122,20 +139,21 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `email` varchar(80) NOT NULL,
   `phone` varchar(15) NOT NULL,
   `document_id` int(11) DEFAULT NULL,
-  `associate_id` int(11) DEFAULT NULL,
+  `referred_by` varchar(20) DEFAULT NULL,
   `pass` varchar(100) NOT NULL,
   `image` varchar(100) NOT NULL,
   `status` int(11) NOT NULL DEFAULT '1' COMMENT '1-active 0-not active',
   PRIMARY KEY (`customer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `customer`
 --
 
-INSERT INTO `customer` (`customer_id`, `name`, `gender`, `email`, `phone`, `document_id`, `associate_id`, `pass`, `image`, `status`) VALUES
-(22, 'shaoli pandey', 0, 'rahul@gmail.com', '9647157187', NULL, 9, '$2b$10$q3OdRqLwaFGJTnEPTQJSF.PuvPBQEmCgk7BctcpIiF8RMm/Z6ekDK', '7dd8cb08149743d65524479be35b5d48__1663315881773.jpg', 1),
-(23, 'NILOTPAL PRASAD', 0, 'avishek.creazioneservices@gmail.com', '9073191111', NULL, 9, '$2b$10$V8Q1Pqrb.ydaa6glXawOFeugz/o7pXf1EjINvQ5iNJ/uY1FpbHgRm', '0679033f36a20adefcf1760c9a59a885__1663318363104.jpg', 1);
+INSERT INTO `customer` (`customer_id`, `name`, `gender`, `email`, `phone`, `document_id`, `referred_by`, `pass`, `image`, `status`) VALUES
+(22, 'shaoli pandey', 0, 'rahul@gmail.com', '9647157187', NULL, '9', '$2b$10$q3OdRqLwaFGJTnEPTQJSF.PuvPBQEmCgk7BctcpIiF8RMm/Z6ekDK', '7dd8cb08149743d65524479be35b5d48__1663315881773.jpg', 1),
+(23, 'NILOTPAL PRASAD', 0, 'avishek.creazioneservices@gmail.com', '9073191111', NULL, '9', '$2b$10$V8Q1Pqrb.ydaa6glXawOFeugz/o7pXf1EjINvQ5iNJ/uY1FpbHgRm', '0679033f36a20adefcf1760c9a59a885__1663318363104.jpg', 1),
+(24, 'Bilash Halder', 0, 'nidobe3103@otodir.com', '9876543210', NULL, 'ADMIN002', '$2b$10$wx26Z/OdjfVNJHlqb6BmleY.UoVU7V9W9oSw2Up9JmO1C/5CJcjT.', '5839877e807fe6508bde67224f91ab50__1663394351904.jpg', 1);
 
 -- --------------------------------------------------------
 
